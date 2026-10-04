@@ -1,0 +1,4 @@
+loan_id,customer_id,requested_amount_eur,term_months,purpose,status
+NB-LOAN-2101,NB-CUST-3001,22000,48,Home renovation,DOCUMENT_REVIEW
+NB-LOAN-2102,NB-CUST-3002,30000,60,Vehicle purchase,DOCUMENT_REVIEW
+NB-LOAN-2103,NB-CUST-3003,15000,36,Education expenses,DOCUMENT_REVIEW

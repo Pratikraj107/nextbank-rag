@@ -1,0 +1,10 @@
+NexaBank Test Document
+
+This is an intentionally invalid test document.
+
+It is not a supported document format.
+It does not contain a valid loan application.
+It does not contain customer information.
+It does not contain any recognized document type.
+
+This file exists only to test ingestion error handling.

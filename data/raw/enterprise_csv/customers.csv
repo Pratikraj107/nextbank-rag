@@ -1,0 +1,4 @@
+customer_id,name,city,date_of_birth,employment,employer
+NB-CUST-3001,Lotte van Dijk,Amsterdam,1990-06-14,Data Analyst,Canal Analytics B.V.
+NB-CUST-3002,Thomas de Boer,Utrecht,1985-09-21,Project Manager,Delta Infra B.V.
+NB-CUST-3003,Nina Jansen,Rotterdam,1996-02-03,UX Designer,Harbor Digital B.V.
