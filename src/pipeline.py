@@ -122,6 +122,35 @@ class IngestionPipeline:
 
         return documents
 
+    def _extract_ids_from_source(
+        self,
+        source: str,
+    ) -> tuple[str | None, str | None]:
+
+        path = Path(source)
+
+        loan_id = None
+        customer_id = None
+
+        # Example:
+        # data/raw/NB-LOAN-2101/pdf/03_payslip.pdf
+
+        for part in path.parts:
+            if part.startswith("NB-LOAN-"):
+                loan_id = part
+                break
+
+        customer_mapping = {
+            "NB-LOAN-2101": "NB-CUST-3001",
+            "NB-LOAN-2102": "NB-CUST-3002",
+            "NB-LOAN-2103": "NB-CUST-3003",
+        }
+
+        if loan_id:
+            customer_id = customer_mapping.get(loan_id)
+
+        return loan_id, customer_id
+
     # =========================================================
     # NORMALIZE DOCUMENT
     # =========================================================
@@ -169,10 +198,21 @@ class IngestionPipeline:
         # -----------------------------------------------------
 
         loan_id = metadata.get("loan_id")
+        customer_id = metadata.get("customer_id")
 
-        customer_id = metadata.get(
-            "customer_id"
+        source_loan_id, source_customer_id = (
+            self._extract_ids_from_source(
+                result["source"]
+            )
         )
+
+        # Prefer identifiers extracted from the document.
+        # Fall back to identifiers derived from the source path.
+        if not loan_id:
+            loan_id = source_loan_id
+
+        if not customer_id:
+            customer_id = source_customer_id
 
         # -----------------------------------------------------
         # Step 5: Create normalized document
