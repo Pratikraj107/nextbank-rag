@@ -1,0 +1,1043 @@
+{
+  "summary": {
+    "total_questions": 10,
+    "completed_questions": 10,
+    "failed_questions": 0,
+    "recall_at_1_percent": 100.0,
+    "recall_at_3_percent": 100.0,
+    "recall_at_5_percent": 100.0,
+    "gold_answer_correctness_percent": 100.0,
+    "faithfulness_percent": 100.0,
+    "citation_accuracy_percent": 100.0,
+    "valid_citation_label_rate_percent": 100.0,
+    "deterministic_fact_pass_rate_percent": 90.0,
+    "deterministic_fact_checks_passed": 22,
+    "deterministic_fact_checks_total": 23,
+    "deterministic_fact_check_is_string_based": true,
+    "judge_score_scale": "0-2, normalized to percentage",
+    "gold_answer_comparison": true,
+    "gold_answer_correctness_is_llm_judged": true,
+    "faithfulness_is_llm_judged": true,
+    "citation_accuracy_is_llm_judged": true,
+    "note": "LLM-judge metrics are estimates, not deterministic proof. Deterministic checks require curated answer-text variants and can miss semantic errors or be affected by formatting. They are not a proof of correctness. Review per-question results, especially identity-link questions."
+  },
+  "results": [
+    {
+      "id": 1,
+      "question": "What is Lotte van Dijk's annual salary?",
+      "expected_source": "09_employment_agreement.docx",
+      "expected_answer": "Lotte van Dijk's annual gross salary is EUR 72,000.",
+      "answer": "Lotte van Dijk's annual gross salary is EUR 72,000. [S1][S2]",
+      "retrieved_sources": [
+        {
+          "source_id": "S1",
+          "source": "data/raw/NB-LOAN-2101/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 0,
+          "similarity": 0.7224216529824583,
+          "content": "Employment Agreement — Synthetic\nEmployee: Lotte van Dijk\nEmployer: Canal Analytics B.V.\nPosition: Data Analyst\nContract type: Indefinite-term\nStart date: 03 May 2021\nAnnual gross salary: EUR 72,000"
+        },
+        {
+          "source_id": "S2",
+          "source": "data/raw/NB-LOAN-2101/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 1,
+          "similarity": 0.5876614867698327,
+          "content": "date: 03 May 2021 Annual gross salary: EUR 72,000 Confidentiality and payroll clauses apply.\nSynthetic training document."
+        }
+      ],
+      "retrieval": {
+        "recall_at_1": true,
+        "recall_at_3": true,
+        "recall_at_5": true
+      },
+      "citation_validation": {
+        "cited_labels": [
+          "S1",
+          "S2"
+        ],
+        "valid_labels": [
+          "S1",
+          "S2"
+        ],
+        "invalid_labels": [],
+        "has_citations": true,
+        "all_labels_valid": true
+      },
+      "deterministic_fact_check": {
+        "passed": true,
+        "required_fact_groups_total": 2,
+        "required_fact_groups_passed": 2,
+        "missing_fact_groups": [],
+        "checks": [
+          {
+            "fact_group": 1,
+            "accepted_variants": [
+              "Lotte van Dijk"
+            ],
+            "matched_variants": [
+              "Lotte van Dijk"
+            ],
+            "passed": true
+          },
+          {
+            "fact_group": 2,
+            "accepted_variants": [
+              "EUR 72,000",
+              "EUR 72000",
+              "72,000",
+              "72000"
+            ],
+            "matched_variants": [
+              "EUR 72,000",
+              "EUR 72000",
+              "72,000",
+              "72000"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "judge": {
+        "gold_answer_correctness": 2,
+        "gold_answer_correctness_reason": "The generated answer matches the expected answer exactly; the employment agreement (S1/S2) lists Lotte van Dijk's annual gross salary as EUR 72,000.",
+        "faithfulness": 2,
+        "faithfulness_reason": "All material claims in the generated answer are directly supported by the retrieved evidence: S1 and S2 explicitly state 'Employee: Lotte van Dijk' and 'Annual gross salary: EUR 72,000.'",
+        "citation_accuracy": 2,
+        "citation_accuracy_reason": "The cited documents (S1 and S2, the employment agreement) contain the salary figure and the employee name, so the citations accurately support the claim."
+      }
+    },
+    {
+      "id": 2,
+      "question": "What is Lotte van Dijk's monthly gross salary?",
+      "expected_source": "03_payslip.pdf",
+      "expected_answer": "Lotte van Dijk's monthly gross salary is EUR 6,000.",
+      "answer": "Lotte van Dijk's gross monthly salary is EUR 6,000.00. [S1][S2]",
+      "retrieved_sources": [
+        {
+          "source_id": "S1",
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 0,
+          "similarity": 0.8148363201167222,
+          "content": "Salary Slip / Salarisstrook — September 2026\nEmployee\nLotte van Dijk\nEmployee ID: EMP-3001\nEmployer: Canal Analytics B.V.\nPayroll\nGross monthly salary: EUR 6,000.00\nNet salary: EUR 4,300.00"
+        },
+        {
+          "source_id": "S2",
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 1,
+          "similarity": 0.6338174474702198,
+          "content": "salary: EUR 6,000.00 Net salary: EUR 4,300.00 Payroll period: September 2026\nDeductions\nPayroll tax / loonheffing\nPension contribution / pensioen\nEmployee insurance contributions\nNote"
+        },
+        {
+          "source_id": "S3",
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 2,
+          "similarity": 0.460577473629178,
+          "content": "/ pensioen Employee insurance contributions Note Synthetic payroll. Figures are designed for document extraction testing."
+        }
+      ],
+      "retrieval": {
+        "recall_at_1": true,
+        "recall_at_3": true,
+        "recall_at_5": true
+      },
+      "citation_validation": {
+        "cited_labels": [
+          "S1",
+          "S2"
+        ],
+        "valid_labels": [
+          "S1",
+          "S2"
+        ],
+        "invalid_labels": [],
+        "has_citations": true,
+        "all_labels_valid": true
+      },
+      "deterministic_fact_check": {
+        "passed": true,
+        "required_fact_groups_total": 2,
+        "required_fact_groups_passed": 2,
+        "missing_fact_groups": [],
+        "checks": [
+          {
+            "fact_group": 1,
+            "accepted_variants": [
+              "Lotte van Dijk"
+            ],
+            "matched_variants": [
+              "Lotte van Dijk"
+            ],
+            "passed": true
+          },
+          {
+            "fact_group": 2,
+            "accepted_variants": [
+              "EUR 6,000",
+              "EUR 6000",
+              "6,000",
+              "6000"
+            ],
+            "matched_variants": [
+              "EUR 6,000",
+              "EUR 6000",
+              "6,000",
+              "6000"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "judge": {
+        "gold_answer_correctness": 2,
+        "gold_answer_correctness_reason": "The expected answer states EUR 6,000; the retrieved payslip (S1, S2) explicitly lists Lotte van Dijk's gross monthly salary as EUR 6,000.00.",
+        "faithfulness": 2,
+        "faithfulness_reason": "The generated claim exactly matches the payslip content in the retrieved evidence (S1 and S2) and includes no unsupported details.",
+        "citation_accuracy": 2,
+        "citation_accuracy_reason": "The answer cites S1 and S2, which directly contain the gross monthly salary value for Lotte van Dijk."
+      }
+    },
+    {
+      "id": 3,
+      "question": "What is Lotte van Dijk's monthly net salary?",
+      "expected_source": "03_payslip.pdf",
+      "expected_answer": "Lotte van Dijk's monthly net salary is EUR 4,300.",
+      "answer": "Lotte van Dijk's monthly net salary is EUR 4,300.00 (per the September 2026 payslip) [S1][S2].",
+      "retrieved_sources": [
+        {
+          "source_id": "S1",
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 0,
+          "similarity": 0.801177992303909,
+          "content": "Salary Slip / Salarisstrook — September 2026\nEmployee\nLotte van Dijk\nEmployee ID: EMP-3001\nEmployer: Canal Analytics B.V.\nPayroll\nGross monthly salary: EUR 6,000.00\nNet salary: EUR 4,300.00"
+        },
+        {
+          "source_id": "S2",
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 1,
+          "similarity": 0.6297660865151623,
+          "content": "salary: EUR 6,000.00 Net salary: EUR 4,300.00 Payroll period: September 2026\nDeductions\nPayroll tax / loonheffing\nPension contribution / pensioen\nEmployee insurance contributions\nNote"
+        },
+        {
+          "source_id": "S3",
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 2,
+          "similarity": 0.45652208556022716,
+          "content": "/ pensioen Employee insurance contributions Note Synthetic payroll. Figures are designed for document extraction testing."
+        }
+      ],
+      "retrieval": {
+        "recall_at_1": true,
+        "recall_at_3": true,
+        "recall_at_5": true
+      },
+      "citation_validation": {
+        "cited_labels": [
+          "S1",
+          "S2"
+        ],
+        "valid_labels": [
+          "S1",
+          "S2"
+        ],
+        "invalid_labels": [],
+        "has_citations": true,
+        "all_labels_valid": true
+      },
+      "deterministic_fact_check": {
+        "passed": true,
+        "required_fact_groups_total": 2,
+        "required_fact_groups_passed": 2,
+        "missing_fact_groups": [],
+        "checks": [
+          {
+            "fact_group": 1,
+            "accepted_variants": [
+              "Lotte van Dijk"
+            ],
+            "matched_variants": [
+              "Lotte van Dijk"
+            ],
+            "passed": true
+          },
+          {
+            "fact_group": 2,
+            "accepted_variants": [
+              "EUR 4,300",
+              "EUR 4300",
+              "4,300",
+              "4300"
+            ],
+            "matched_variants": [
+              "EUR 4,300",
+              "EUR 4300",
+              "4,300",
+              "4300"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "judge": {
+        "gold_answer_correctness": 2,
+        "gold_answer_correctness_reason": "The generated answer matches the expected answer exactly: the September 2026 payslip for Lotte van Dijk shows a net monthly salary of EUR 4,300.",
+        "faithfulness": 2,
+        "faithfulness_reason": "All material claims (name, net amount, and payslip date) are directly supported by the retrieved evidence (S1 and S2).",
+        "citation_accuracy": 2,
+        "citation_accuracy_reason": "The cited documents S1 and S2 are the payslip snippets that state 'Net salary: EUR 4,300.00' for Lotte van Dijk (September 2026), so the citations accurately support the claim."
+      }
+    },
+    {
+      "id": 4,
+      "question": "What is Lotte van Dijk's outstanding loan balance?",
+      "expected_source": "06_existing_loan_statement.pdf",
+      "expected_answer": "Lotte van Dijk's outstanding loan balance is EUR 4,820 as of 30 September 2026.",
+      "answer": "Lotte van Dijk's outstanding loan balance is EUR 4,820 [S1]. The statement is dated 30-09-2026 [S2].",
+      "retrieved_sources": [
+        {
+          "source_id": "S1",
+          "source": "data/raw/NB-LOAN-2101/pdf/06_existing_loan_statement.pdf",
+          "document_type": "existing_loan_statement",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 0,
+          "similarity": 0.8068009882278354,
+          "content": "Existing Credit / Loan Balance Statement\nBorrower\nLotte van Dijk\nContract number: EXT-3001-55\nLender\nSynthetic Finance Nederland B.V.\nBalance\nOutstanding balance: EUR 4,820\nMonthly payment: EUR 310"
+        },
+        {
+          "source_id": "S2",
+          "source": "data/raw/NB-LOAN-2101/pdf/06_existing_loan_statement.pdf",
+          "document_type": "existing_loan_statement",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 1,
+          "similarity": 0.63549686740628,
+          "content": "balance: EUR 4,820 Monthly payment: EUR 310 Statement date: 30-09-2026"
+        }
+      ],
+      "retrieval": {
+        "recall_at_1": true,
+        "recall_at_3": true,
+        "recall_at_5": true
+      },
+      "citation_validation": {
+        "cited_labels": [
+          "S1",
+          "S2"
+        ],
+        "valid_labels": [
+          "S1",
+          "S2"
+        ],
+        "invalid_labels": [],
+        "has_citations": true,
+        "all_labels_valid": true
+      },
+      "deterministic_fact_check": {
+        "passed": true,
+        "required_fact_groups_total": 3,
+        "required_fact_groups_passed": 3,
+        "missing_fact_groups": [],
+        "checks": [
+          {
+            "fact_group": 1,
+            "accepted_variants": [
+              "Lotte van Dijk"
+            ],
+            "matched_variants": [
+              "Lotte van Dijk"
+            ],
+            "passed": true
+          },
+          {
+            "fact_group": 2,
+            "accepted_variants": [
+              "EUR 4,820",
+              "EUR 4820",
+              "4,820",
+              "4820"
+            ],
+            "matched_variants": [
+              "EUR 4,820",
+              "EUR 4820",
+              "4,820",
+              "4820"
+            ],
+            "passed": true
+          },
+          {
+            "fact_group": 3,
+            "accepted_variants": [
+              "30 September 2026",
+              "30 September, 2026",
+              "30-09-2026",
+              "30/09/2026"
+            ],
+            "matched_variants": [
+              "30-09-2026",
+              "30/09/2026"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "judge": {
+        "gold_answer_correctness": 2,
+        "gold_answer_correctness_reason": "The generated answer states an outstanding balance of EUR 4,820 dated 30-09-2026, which exactly matches the expected answer.",
+        "faithfulness": 2,
+        "faithfulness_reason": "Both material claims (outstanding balance and statement date) are directly supported by the retrieved documents: S1 shows 'Outstanding balance: EUR 4,820' and S2 shows 'Statement date: 30-09-2026.'",
+        "citation_accuracy": 2,
+        "citation_accuracy_reason": "The answer cites S1 for the balance and S2 for the statement date; both cited documents contain the supporting text."
+      }
+    },
+    {
+      "id": 5,
+      "question": "What is Thomas de Boer's monthly gross salary?",
+      "expected_source": "03_payslip.pdf",
+      "expected_answer": "Thomas de Boer's monthly gross salary is EUR 6,750.",
+      "answer": "Thomas de Boer's gross monthly salary is EUR 6,750.00. [S1]",
+      "retrieved_sources": [
+        {
+          "source_id": "S1",
+          "source": "data/raw/NB-LOAN-2102/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "loan_id": "NB-LOAN-2102",
+          "customer_id": "NB-CUST-3002",
+          "chunk_index": 0,
+          "similarity": 0.8045226287581958,
+          "content": "Salary Slip / Salarisstrook — September 2026\nEmployee\nThomas de Boer\nEmployee ID: EMP-3002\nEmployer: Delta Infra B.V.\nPayroll\nGross monthly salary: EUR 6,750.00\nNet salary: EUR 4,700.00"
+        },
+        {
+          "source_id": "S2",
+          "source": "data/raw/NB-LOAN-2102/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "loan_id": "NB-LOAN-2102",
+          "customer_id": "NB-CUST-3002",
+          "chunk_index": 1,
+          "similarity": 0.634186797256332,
+          "content": "salary: EUR 6,750.00 Net salary: EUR 4,700.00 Payroll period: September 2026\nDeductions\nPayroll tax / loonheffing\nPension contribution / pensioen\nEmployee insurance contributions\nNote"
+        },
+        {
+          "source_id": "S3",
+          "source": "data/raw/NB-LOAN-2102/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "loan_id": "NB-LOAN-2102",
+          "customer_id": "NB-CUST-3002",
+          "chunk_index": 2,
+          "similarity": 0.45243440291082077,
+          "content": "/ pensioen Employee insurance contributions Note Synthetic payroll. Figures are designed for document extraction testing."
+        }
+      ],
+      "retrieval": {
+        "recall_at_1": true,
+        "recall_at_3": true,
+        "recall_at_5": true
+      },
+      "citation_validation": {
+        "cited_labels": [
+          "S1"
+        ],
+        "valid_labels": [
+          "S1"
+        ],
+        "invalid_labels": [],
+        "has_citations": true,
+        "all_labels_valid": true
+      },
+      "deterministic_fact_check": {
+        "passed": true,
+        "required_fact_groups_total": 2,
+        "required_fact_groups_passed": 2,
+        "missing_fact_groups": [],
+        "checks": [
+          {
+            "fact_group": 1,
+            "accepted_variants": [
+              "Thomas de Boer"
+            ],
+            "matched_variants": [
+              "Thomas de Boer"
+            ],
+            "passed": true
+          },
+          {
+            "fact_group": 2,
+            "accepted_variants": [
+              "EUR 6,750",
+              "EUR 6750",
+              "6,750",
+              "6750"
+            ],
+            "matched_variants": [
+              "EUR 6,750",
+              "EUR 6750",
+              "6,750",
+              "6750"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "judge": {
+        "gold_answer_correctness": 2,
+        "gold_answer_correctness_reason": "The generated answer matches the expected answer: the payslip (S1) lists Thomas de Boer’s gross monthly salary as EUR 6,750.00.",
+        "faithfulness": 2,
+        "faithfulness_reason": "The claim is directly supported by the retrieved payslip content (S1) which names Thomas de Boer and shows Gross monthly salary: EUR 6,750.00.",
+        "citation_accuracy": 2,
+        "citation_accuracy_reason": "The generated answer cites S1, which is the payslip document that contains the stated gross monthly salary."
+      }
+    },
+    {
+      "id": 6,
+      "question": "What is the loan term for NB-LOAN-2101?",
+      "expected_source": "01_loan_application.pdf",
+      "expected_answer": "The loan term for NB-LOAN-2101 is 48 months.",
+      "answer": "The loan term for NB-LOAN-2101 is 48 months [S1][S2].",
+      "retrieved_sources": [
+        {
+          "source_id": "S1",
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 0,
+          "similarity": 0.7565686697663386,
+          "content": "NexaBank Netherlands — Personal Loan Application\nApplication\nApplication reference: NB-LOAN-2101\nApplicant: Lotte van Dijk\nCustomer reference: NB-CUST-3001\nRequested: EUR 22,000\nTerm: 48 months"
+        },
+        {
+          "source_id": "S2",
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 1,
+          "similarity": 0.6280557204125241,
+          "content": "Requested: EUR 22,000 Term: 48 months Purpose: Home renovation\nPersonal details\nDate of birth: 1990-06-14\nResidential city: Amsterdam\nEmployment: Data Analyst\nEmployer: Canal Analytics B.V.\nDeclaration"
+        },
+        {
+          "source_id": "S3",
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 3,
+          "similarity": 0.5179242301693472,
+          "content": "Documents requested Synthetic Language English Dutch documents may also occur"
+        },
+        {
+          "source_id": "S4",
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 4,
+          "similarity": 0.4852357935883265,
+          "content": "Dutch documents may also occur Supporting page\nSynthetic continuation page. This intentionally tests multi-page extraction and page ordering."
+        },
+        {
+          "source_id": "S5",
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 2,
+          "similarity": 0.46954970541589847,
+          "content": "Employer: Canal Analytics B.V. Declaration Applicant confirms that information supplied is complete and accurate. Synthetic document for engineering training.\nField\nValue\nNotes\nStatus\nDocuments requested\nSynthetic\nLanguage\nEnglish"
+        }
+      ],
+      "retrieval": {
+        "recall_at_1": true,
+        "recall_at_3": true,
+        "recall_at_5": true
+      },
+      "citation_validation": {
+        "cited_labels": [
+          "S1",
+          "S2"
+        ],
+        "valid_labels": [
+          "S1",
+          "S2"
+        ],
+        "invalid_labels": [],
+        "has_citations": true,
+        "all_labels_valid": true
+      },
+      "deterministic_fact_check": {
+        "passed": true,
+        "required_fact_groups_total": 2,
+        "required_fact_groups_passed": 2,
+        "missing_fact_groups": [],
+        "checks": [
+          {
+            "fact_group": 1,
+            "accepted_variants": [
+              "NB-LOAN-2101"
+            ],
+            "matched_variants": [
+              "NB-LOAN-2101"
+            ],
+            "passed": true
+          },
+          {
+            "fact_group": 2,
+            "accepted_variants": [
+              "48 months",
+              "48-month"
+            ],
+            "matched_variants": [
+              "48 months",
+              "48-month"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "judge": {
+        "gold_answer_correctness": 2,
+        "gold_answer_correctness_reason": "The generated answer states '48 months', which exactly matches the extracted 'Term: 48 months' in the retrieved evidence (S1 and S2).",
+        "faithfulness": 2,
+        "faithfulness_reason": "The sole factual claim (loan term = 48 months) is directly supported by the supplied documents; no unsupported details are introduced.",
+        "citation_accuracy": 2,
+        "citation_accuracy_reason": "The answer cites S1 and S2, and both documents explicitly show 'Term: 48 months', so the citations validly support the claim."
+      }
+    },
+    {
+      "id": 7,
+      "question": "What is the requested loan amount for NB-LOAN-2101?",
+      "expected_source": "01_loan_application.pdf",
+      "expected_answer": "The requested loan amount for NB-LOAN-2101 is EUR 22,000.",
+      "answer": "The requested loan amount for NB-LOAN-2101 is EUR 22,000. [S1][S2]",
+      "retrieved_sources": [
+        {
+          "source_id": "S1",
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 0,
+          "similarity": 0.7585481884596416,
+          "content": "NexaBank Netherlands — Personal Loan Application\nApplication\nApplication reference: NB-LOAN-2101\nApplicant: Lotte van Dijk\nCustomer reference: NB-CUST-3001\nRequested: EUR 22,000\nTerm: 48 months"
+        },
+        {
+          "source_id": "S2",
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 1,
+          "similarity": 0.6590714823157747,
+          "content": "Requested: EUR 22,000 Term: 48 months Purpose: Home renovation\nPersonal details\nDate of birth: 1990-06-14\nResidential city: Amsterdam\nEmployment: Data Analyst\nEmployer: Canal Analytics B.V.\nDeclaration"
+        },
+        {
+          "source_id": "S3",
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 3,
+          "similarity": 0.5730046588983781,
+          "content": "Documents requested Synthetic Language English Dutch documents may also occur"
+        },
+        {
+          "source_id": "S4",
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 2,
+          "similarity": 0.5114292231300919,
+          "content": "Employer: Canal Analytics B.V. Declaration Applicant confirms that information supplied is complete and accurate. Synthetic document for engineering training.\nField\nValue\nNotes\nStatus\nDocuments requested\nSynthetic\nLanguage\nEnglish"
+        },
+        {
+          "source_id": "S5",
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 4,
+          "similarity": 0.4848466674556634,
+          "content": "Dutch documents may also occur Supporting page\nSynthetic continuation page. This intentionally tests multi-page extraction and page ordering."
+        }
+      ],
+      "retrieval": {
+        "recall_at_1": true,
+        "recall_at_3": true,
+        "recall_at_5": true
+      },
+      "citation_validation": {
+        "cited_labels": [
+          "S1",
+          "S2"
+        ],
+        "valid_labels": [
+          "S1",
+          "S2"
+        ],
+        "invalid_labels": [],
+        "has_citations": true,
+        "all_labels_valid": true
+      },
+      "deterministic_fact_check": {
+        "passed": true,
+        "required_fact_groups_total": 2,
+        "required_fact_groups_passed": 2,
+        "missing_fact_groups": [],
+        "checks": [
+          {
+            "fact_group": 1,
+            "accepted_variants": [
+              "NB-LOAN-2101"
+            ],
+            "matched_variants": [
+              "NB-LOAN-2101"
+            ],
+            "passed": true
+          },
+          {
+            "fact_group": 2,
+            "accepted_variants": [
+              "EUR 22,000",
+              "EUR 22000",
+              "22,000",
+              "22000"
+            ],
+            "matched_variants": [
+              "EUR 22,000",
+              "EUR 22000",
+              "22,000",
+              "22000"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "judge": {
+        "gold_answer_correctness": 2,
+        "gold_answer_correctness_reason": "The generated answer matches the expected answer: the loan application (S1, S2) explicitly lists 'Requested: EUR 22,000.'",
+        "faithfulness": 2,
+        "faithfulness_reason": "The sole material claim (requested amount EUR 22,000) is directly supported by the retrieved documents S1 and S2.",
+        "citation_accuracy": 2,
+        "citation_accuracy_reason": "The answer cites S1 and S2, both of which contain the exact 'Requested: EUR 22,000' statement, so the citations accurately support the claim."
+      }
+    },
+    {
+      "id": 8,
+      "question": "What is the employment start date of Lotte van Dijk?",
+      "expected_source": "09_employment_agreement.docx",
+      "expected_answer": "Lotte van Dijk's employment start date is 3 May 2021.",
+      "answer": "Lotte van Dijk’s employment start date is 03 May 2021. [S1][S2]",
+      "retrieved_sources": [
+        {
+          "source_id": "S1",
+          "source": "data/raw/NB-LOAN-2101/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 0,
+          "similarity": 0.7570872095743135,
+          "content": "Employment Agreement — Synthetic\nEmployee: Lotte van Dijk\nEmployer: Canal Analytics B.V.\nPosition: Data Analyst\nContract type: Indefinite-term\nStart date: 03 May 2021\nAnnual gross salary: EUR 72,000"
+        },
+        {
+          "source_id": "S2",
+          "source": "data/raw/NB-LOAN-2101/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 1,
+          "similarity": 0.5764650878987232,
+          "content": "date: 03 May 2021 Annual gross salary: EUR 72,000 Confidentiality and payroll clauses apply.\nSynthetic training document."
+        }
+      ],
+      "retrieval": {
+        "recall_at_1": true,
+        "recall_at_3": true,
+        "recall_at_5": true
+      },
+      "citation_validation": {
+        "cited_labels": [
+          "S1",
+          "S2"
+        ],
+        "valid_labels": [
+          "S1",
+          "S2"
+        ],
+        "invalid_labels": [],
+        "has_citations": true,
+        "all_labels_valid": true
+      },
+      "deterministic_fact_check": {
+        "passed": true,
+        "required_fact_groups_total": 2,
+        "required_fact_groups_passed": 2,
+        "missing_fact_groups": [],
+        "checks": [
+          {
+            "fact_group": 1,
+            "accepted_variants": [
+              "Lotte van Dijk"
+            ],
+            "matched_variants": [
+              "Lotte van Dijk"
+            ],
+            "passed": true
+          },
+          {
+            "fact_group": 2,
+            "accepted_variants": [
+              "3 May 2021",
+              "03 May 2021",
+              "3 May, 2021",
+              "03-05-2021",
+              "2021-05-03"
+            ],
+            "matched_variants": [
+              "3 May 2021",
+              "03 May 2021",
+              "3 May, 2021"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "judge": {
+        "gold_answer_correctness": 2,
+        "gold_answer_correctness_reason": "The generated answer matches the expected answer exactly: both state the start date as 3 May 2021, which is supported by the evidence.",
+        "faithfulness": 2,
+        "faithfulness_reason": "The claim (start date 03 May 2021) is directly supported by the retrieved documents S1 and S2; no unsupported information was added.",
+        "citation_accuracy": 2,
+        "citation_accuracy_reason": "The answer cites S1 and S2, both of which are the employment agreement containing the start date '03 May 2021', so the citations accurately support the claim."
+      }
+    },
+    {
+      "id": 9,
+      "question": "What is the outstanding balance of the existing loan for Thomas de Boer?",
+      "expected_source": "06_existing_loan_statement.pdf",
+      "expected_answer": "Thomas de Boer's existing loan outstanding balance is EUR 5,280.",
+      "answer": "The outstanding balance is EUR 5,280. [S1][S2]",
+      "retrieved_sources": [
+        {
+          "source_id": "S1",
+          "source": "data/raw/NB-LOAN-2102/pdf/06_existing_loan_statement.pdf",
+          "document_type": "existing_loan_statement",
+          "loan_id": "NB-LOAN-2102",
+          "customer_id": "NB-CUST-3002",
+          "chunk_index": 0,
+          "similarity": 0.8600421734243462,
+          "content": "Existing Credit / Loan Balance Statement\nBorrower\nThomas de Boer\nContract number: EXT-3002-55\nLender\nSynthetic Finance Nederland B.V.\nBalance\nOutstanding balance: EUR 5,280\nMonthly payment: EUR 540"
+        },
+        {
+          "source_id": "S2",
+          "source": "data/raw/NB-LOAN-2102/pdf/06_existing_loan_statement.pdf",
+          "document_type": "existing_loan_statement",
+          "loan_id": "NB-LOAN-2102",
+          "customer_id": "NB-CUST-3002",
+          "chunk_index": 1,
+          "similarity": 0.6468586878668295,
+          "content": "balance: EUR 5,280 Monthly payment: EUR 540 Statement date: 30-09-2026"
+        }
+      ],
+      "retrieval": {
+        "recall_at_1": true,
+        "recall_at_3": true,
+        "recall_at_5": true
+      },
+      "citation_validation": {
+        "cited_labels": [
+          "S1",
+          "S2"
+        ],
+        "valid_labels": [
+          "S1",
+          "S2"
+        ],
+        "invalid_labels": [],
+        "has_citations": true,
+        "all_labels_valid": true
+      },
+      "deterministic_fact_check": {
+        "passed": false,
+        "required_fact_groups_total": 2,
+        "required_fact_groups_passed": 1,
+        "missing_fact_groups": [
+          1
+        ],
+        "checks": [
+          {
+            "fact_group": 1,
+            "accepted_variants": [
+              "Thomas de Boer"
+            ],
+            "matched_variants": [],
+            "passed": false
+          },
+          {
+            "fact_group": 2,
+            "accepted_variants": [
+              "EUR 5,280",
+              "EUR 5280",
+              "5,280",
+              "5280"
+            ],
+            "matched_variants": [
+              "EUR 5,280",
+              "EUR 5280",
+              "5,280",
+              "5280"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "judge": {
+        "gold_answer_correctness": 2,
+        "gold_answer_correctness_reason": "The generated answer matches the expected answer exactly: the retrieved existing loan statement (S1/S2) shows Thomas de Boer's outstanding balance as EUR 5,280.",
+        "faithfulness": 2,
+        "faithfulness_reason": "All material factual claims (outstanding balance for Thomas de Boer is EUR 5,280) are directly supported by the supplied documents; no unsupported details were added.",
+        "citation_accuracy": 2,
+        "citation_accuracy_reason": "The cited sources S1 and S2 are the existing loan statement documents that explicitly state 'Outstanding balance: EUR 5,280' for borrower Thomas de Boer."
+      }
+    },
+    {
+      "id": 10,
+      "question": "What is the credit assessment status for Lotte van Dijk?",
+      "expected_source": "10_credit_analyst_notes.docx",
+      "expected_answer": "The analyst notes for customer NB-CUST-3001 and loan NB-LOAN-2101 state DOCUMENT REVIEW PENDING. To attribute this status to Lotte van Dijk, the evidence must also establish that she is NB-CUST-3001.",
+      "answer": "The documents show the credit assessment status for loan NB-LOAN-2101 / customer NB-CUST-3001 as \"DOCUMENT REVIEW PENDING\" [S2]. However, the supplied documents do not link the name Lotte van Dijk to NB-CUST-3001, so I cannot confirm from these documents that this status applies to Lotte van Dijk [S1,S2].",
+      "retrieved_sources": [
+        {
+          "source_id": "S1",
+          "source": "data/raw/NB-LOAN-2101/docx/10_credit_analyst_notes.docx",
+          "document_type": "credit_assessment",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 1,
+          "similarity": 0.5791260822937094,
+          "content": "NB-CUST-3001 Requested amount: EUR 22,000 Documents expected: application, identity evidence, bank statement, payslip, employer statement, existing credit statement."
+        },
+        {
+          "source_id": "S2",
+          "source": "data/raw/NB-LOAN-2101/docx/10_credit_analyst_notes.docx",
+          "document_type": "credit_assessment",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 2,
+          "similarity": 0.5679226201937217,
+          "content": "employer statement, existing credit statement. Potential checks: income consistency, recurring housing cost, existing debt, document freshness, applicant identity.\nStatus: DOCUMENT REVIEW PENDING\nSynthetic internal note."
+        },
+        {
+          "source_id": "S3",
+          "source": "data/raw/NB-LOAN-2101/docx/10_credit_analyst_notes.docx",
+          "document_type": "credit_assessment",
+          "loan_id": "NB-LOAN-2101",
+          "customer_id": "NB-CUST-3001",
+          "chunk_index": 0,
+          "similarity": 0.5304874448299677,
+          "content": "Credit Analyst Notes — Synthetic\nLoan reference: NB-LOAN-2101\nCustomer: NB-CUST-3001\nRequested amount: EUR 22,000"
+        }
+      ],
+      "retrieval": {
+        "recall_at_1": true,
+        "recall_at_3": true,
+        "recall_at_5": true
+      },
+      "citation_validation": {
+        "cited_labels": [
+          "S2"
+        ],
+        "valid_labels": [
+          "S2"
+        ],
+        "invalid_labels": [],
+        "has_citations": true,
+        "all_labels_valid": true
+      },
+      "deterministic_fact_check": {
+        "passed": true,
+        "required_fact_groups_total": 4,
+        "required_fact_groups_passed": 4,
+        "missing_fact_groups": [],
+        "checks": [
+          {
+            "fact_group": 1,
+            "accepted_variants": [
+              "DOCUMENT REVIEW PENDING"
+            ],
+            "matched_variants": [
+              "DOCUMENT REVIEW PENDING"
+            ],
+            "passed": true
+          },
+          {
+            "fact_group": 2,
+            "accepted_variants": [
+              "NB-CUST-3001"
+            ],
+            "matched_variants": [
+              "NB-CUST-3001"
+            ],
+            "passed": true
+          },
+          {
+            "fact_group": 3,
+            "accepted_variants": [
+              "NB-LOAN-2101"
+            ],
+            "matched_variants": [
+              "NB-LOAN-2101"
+            ],
+            "passed": true
+          },
+          {
+            "fact_group": 4,
+            "accepted_variants": [
+              "cannot confirm",
+              "cannot establish",
+              "do not link",
+              "does not link",
+              "not linked",
+              "cannot attribute",
+              "not enough evidence"
+            ],
+            "matched_variants": [
+              "cannot confirm",
+              "do not link"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "judge": {
+        "gold_answer_correctness": 2,
+        "gold_answer_correctness_reason": "The generated answer states that NB-CUST-3001 / NB-LOAN-2101 status is 'DOCUMENT REVIEW PENDING' and correctly notes that the evidence does not link Lotte van Dijk to NB-CUST-3001 — matching the expected answer and its qualification requirement.",
+        "faithfulness": 2,
+        "faithfulness_reason": "All material claims are supported by the retrieved documents: S2 contains 'Status: DOCUMENT REVIEW PENDING' and S3/S1 identify the loan/customer as NB-LOAN-2101 / NB-CUST-3001; no retrieved document associates the name Lotte van Dijk with NB-CUST-3001.",
+        "citation_accuracy": 2,
+        "citation_accuracy_reason": "The cited sources (S2 for the status; S1/S2 for customer/loan details and absence of a name link) support the claims made in the generated answer."
+      }
+    }
+  ]
+}
