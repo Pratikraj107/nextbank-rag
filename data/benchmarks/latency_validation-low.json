@@ -1,0 +1,1248 @@
+{
+  "label": "validation-low",
+  "by_case": {
+    "salary_lotte": {
+      "agent_total": {
+        "n": 3,
+        "median": 7169.9,
+        "p95": 7589.4
+      },
+      "attempt_1.answer_generation": {
+        "n": 3,
+        "median": 1940.9,
+        "p95": 2057.4
+      },
+      "attempt_1.attempt_answer_total": {
+        "n": 3,
+        "median": 1942.6,
+        "p95": 2122.4
+      },
+      "attempt_1.basic_validation": {
+        "n": 3,
+        "median": 0.1,
+        "p95": 0.2
+      },
+      "attempt_1.context_assembly": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "attempt_1.evidence_validation": {
+        "n": 3,
+        "median": 5016.0,
+        "p95": 5621.2
+      },
+      "attempt_1.evidence_validation.llm_request": {
+        "n": 3,
+        "median": 5015.1,
+        "p95": 5620.4
+      },
+      "attempt_1.evidence_validation.parse": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.1
+      },
+      "attempt_1.evidence_validation.prompt_prep": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "attempt_1.evidence_validation.server_processing": {
+        "n": 3,
+        "median": 4723.0,
+        "p95": 5306.2
+      },
+      "attempt_1.query_embedding": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 60.2
+      },
+      "attempt_1.vector_search": {
+        "n": 3,
+        "median": 1.1,
+        "p95": 4.3
+      },
+      "client_round_trip": {
+        "n": 3,
+        "median": 7184.5,
+        "p95": 7593.7
+      },
+      "query_analysis": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.7
+      },
+      "route_query": {
+        "n": 3,
+        "median": 0.2,
+        "p95": 1.9
+      },
+      "total": {
+        "n": 3,
+        "median": 7170.1,
+        "p95": 7589.6
+      }
+    },
+    "salary_thomas": {
+      "agent_total": {
+        "n": 3,
+        "median": 6082.3,
+        "p95": 7368.3
+      },
+      "attempt_1.answer_generation": {
+        "n": 3,
+        "median": 1544.1,
+        "p95": 2234.0
+      },
+      "attempt_1.attempt_answer_total": {
+        "n": 3,
+        "median": 1546.1,
+        "p95": 2235.9
+      },
+      "attempt_1.basic_validation": {
+        "n": 3,
+        "median": 0.1,
+        "p95": 0.1
+      },
+      "attempt_1.context_assembly": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "attempt_1.evidence_validation": {
+        "n": 3,
+        "median": 4530.5,
+        "p95": 5127.0
+      },
+      "attempt_1.evidence_validation.llm_request": {
+        "n": 3,
+        "median": 4529.7,
+        "p95": 5126.2
+      },
+      "attempt_1.evidence_validation.parse": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "attempt_1.evidence_validation.prompt_prep": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "attempt_1.evidence_validation.server_processing": {
+        "n": 3,
+        "median": 4202.0,
+        "p95": 4826.6
+      },
+      "attempt_1.query_embedding": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 61.4
+      },
+      "attempt_1.vector_search": {
+        "n": 3,
+        "median": 1.3,
+        "p95": 1.3
+      },
+      "client_round_trip": {
+        "n": 3,
+        "median": 6085.9,
+        "p95": 7371.6
+      },
+      "query_analysis": {
+        "n": 3,
+        "median": 0.1,
+        "p95": 0.1
+      },
+      "route_query": {
+        "n": 3,
+        "median": 0.3,
+        "p95": 0.4
+      },
+      "total": {
+        "n": 3,
+        "median": 6082.5,
+        "p95": 7368.4
+      }
+    },
+    "tenure_claim": {
+      "agent_total": {
+        "n": 3,
+        "median": 7995.6,
+        "p95": 9554.7
+      },
+      "attempt_1.answer_generation": {
+        "n": 3,
+        "median": 3580.8,
+        "p95": 3812.8
+      },
+      "attempt_1.attempt_answer_total": {
+        "n": 3,
+        "median": 3654.2,
+        "p95": 3822.3
+      },
+      "attempt_1.basic_validation": {
+        "n": 3,
+        "median": 0.1,
+        "p95": 0.1
+      },
+      "attempt_1.context_assembly": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.1
+      },
+      "attempt_1.evidence_validation": {
+        "n": 3,
+        "median": 4916.8,
+        "p95": 5784.8
+      },
+      "attempt_1.evidence_validation.llm_request": {
+        "n": 3,
+        "median": 4916.0,
+        "p95": 5784.0
+      },
+      "attempt_1.evidence_validation.parse": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "attempt_1.evidence_validation.prompt_prep": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "attempt_1.evidence_validation.server_processing": {
+        "n": 3,
+        "median": 4623.0,
+        "p95": 5472.6
+      },
+      "attempt_1.query_embedding": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 65.0
+      },
+      "attempt_1.vector_search": {
+        "n": 3,
+        "median": 1.5,
+        "p95": 1.6
+      },
+      "client_round_trip": {
+        "n": 3,
+        "median": 7999.2,
+        "p95": 9558.3
+      },
+      "query_analysis": {
+        "n": 3,
+        "median": 0.1,
+        "p95": 0.1
+      },
+      "route_query": {
+        "n": 3,
+        "median": 0.3,
+        "p95": 0.3
+      },
+      "total": {
+        "n": 3,
+        "median": 7995.8,
+        "p95": 9554.9
+      }
+    },
+    "favorite_color": {
+      "agent_total": {
+        "n": 3,
+        "median": 6801.8,
+        "p95": 7902.9
+      },
+      "attempt_1.answer_generation": {
+        "n": 3,
+        "median": 2392.3,
+        "p95": 3424.7
+      },
+      "attempt_1.attempt_answer_total": {
+        "n": 3,
+        "median": 2396.2,
+        "p95": 3426.8
+      },
+      "attempt_1.basic_validation": {
+        "n": 3,
+        "median": 0.1,
+        "p95": 0.1
+      },
+      "attempt_1.context_assembly": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "attempt_1.evidence_validation": {
+        "n": 3,
+        "median": 3996.6,
+        "p95": 5461.4
+      },
+      "attempt_1.evidence_validation.llm_request": {
+        "n": 3,
+        "median": 3995.8,
+        "p95": 5460.6
+      },
+      "attempt_1.evidence_validation.parse": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "attempt_1.evidence_validation.prompt_prep": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "attempt_1.evidence_validation.server_processing": {
+        "n": 3,
+        "median": 3668.0,
+        "p95": 5151.2
+      },
+      "attempt_1.query_embedding": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 64.8
+      },
+      "attempt_1.vector_search": {
+        "n": 3,
+        "median": 1.3,
+        "p95": 1.4
+      },
+      "client_round_trip": {
+        "n": 3,
+        "median": 6804.2,
+        "p95": 7906.1
+      },
+      "query_analysis": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.1
+      },
+      "route_query": {
+        "n": 3,
+        "median": 0.2,
+        "p95": 0.2
+      },
+      "total": {
+        "n": 3,
+        "median": 6801.9,
+        "p95": 7903.1
+      }
+    },
+    "conflict": {
+      "agent_total": {
+        "n": 3,
+        "median": 2.7,
+        "p95": 2.8
+      },
+      "client_round_trip": {
+        "n": 3,
+        "median": 5.2,
+        "p95": 5.6
+      },
+      "query_analysis": {
+        "n": 3,
+        "median": 0.1,
+        "p95": 0.1
+      },
+      "route_query": {
+        "n": 3,
+        "median": 0.3,
+        "p95": 0.3
+      },
+      "total": {
+        "n": 3,
+        "median": 2.8,
+        "p95": 2.9
+      }
+    },
+    "net_salary_citations": {
+      "agent_total": {
+        "n": 3,
+        "median": 6874.5,
+        "p95": 7127.9
+      },
+      "attempt_1.answer_generation": {
+        "n": 3,
+        "median": 2046.1,
+        "p95": 2549.9
+      },
+      "attempt_1.attempt_answer_total": {
+        "n": 3,
+        "median": 2047.8,
+        "p95": 2551.0
+      },
+      "attempt_1.basic_validation": {
+        "n": 3,
+        "median": 0.1,
+        "p95": 0.1
+      },
+      "attempt_1.context_assembly": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "attempt_1.evidence_validation": {
+        "n": 3,
+        "median": 4603.7,
+        "p95": 4800.3
+      },
+      "attempt_1.evidence_validation.llm_request": {
+        "n": 3,
+        "median": 4603.0,
+        "p95": 4799.6
+      },
+      "attempt_1.evidence_validation.parse": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "attempt_1.evidence_validation.prompt_prep": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "attempt_1.evidence_validation.server_processing": {
+        "n": 3,
+        "median": 4287.0,
+        "p95": 4507.5
+      },
+      "attempt_1.query_embedding": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 59.9
+      },
+      "attempt_1.vector_search": {
+        "n": 3,
+        "median": 0.6,
+        "p95": 1.1
+      },
+      "client_round_trip": {
+        "n": 3,
+        "median": 6877.1,
+        "p95": 7130.0
+      },
+      "query_analysis": {
+        "n": 3,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "route_query": {
+        "n": 3,
+        "median": 0.2,
+        "p95": 0.2
+      },
+      "total": {
+        "n": 3,
+        "median": 6874.6,
+        "p95": 7128.0
+      }
+    }
+  },
+  "llm_cases_overall": {
+    "agent_total": {
+      "n": 15,
+      "median": 7156.0,
+      "p95": 8536.1
+    },
+    "attempt_1.answer_generation": {
+      "n": 15,
+      "median": 2310.7,
+      "p95": 3658.1
+    },
+    "attempt_1.attempt_answer_total": {
+      "n": 15,
+      "median": 2312.6,
+      "p95": 3710.2
+    },
+    "attempt_1.basic_validation": {
+      "n": 15,
+      "median": 0.1,
+      "p95": 0.1
+    },
+    "attempt_1.context_assembly": {
+      "n": 15,
+      "median": 0.0,
+      "p95": 0.0
+    },
+    "attempt_1.evidence_validation": {
+      "n": 15,
+      "median": 4603.7,
+      "p95": 5746.2
+    },
+    "attempt_1.evidence_validation.llm_request": {
+      "n": 15,
+      "median": 4603.0,
+      "p95": 5745.4
+    },
+    "attempt_1.evidence_validation.parse": {
+      "n": 15,
+      "median": 0.0,
+      "p95": 0.0
+    },
+    "attempt_1.evidence_validation.prompt_prep": {
+      "n": 15,
+      "median": 0.0,
+      "p95": 0.0
+    },
+    "attempt_1.evidence_validation.server_processing": {
+      "n": 15,
+      "median": 4287.0,
+      "p95": 5429.8
+    },
+    "attempt_1.query_embedding": {
+      "n": 15,
+      "median": 0.0,
+      "p95": 72.1
+    },
+    "attempt_1.vector_search": {
+      "n": 15,
+      "median": 1.2,
+      "p95": 2.5
+    },
+    "client_round_trip": {
+      "n": 15,
+      "median": 7158.1,
+      "p95": 8539.4
+    },
+    "query_analysis": {
+      "n": 15,
+      "median": 0.1,
+      "p95": 0.3
+    },
+    "route_query": {
+      "n": 15,
+      "median": 0.2,
+      "p95": 0.9
+    },
+    "total": {
+      "n": 15,
+      "median": 7156.1,
+      "p95": 8536.3
+    }
+  },
+  "token_usage": {
+    "attempt_1.answer_generation.input_tokens": {
+      "n": 15,
+      "median": 392,
+      "max": 700
+    },
+    "attempt_1.answer_generation.output_tokens": {
+      "n": 15,
+      "median": 136,
+      "max": 325
+    },
+    "attempt_1.answer_generation.reasoning_tokens": {
+      "n": 15,
+      "median": 64,
+      "max": 256
+    },
+    "attempt_1.evidence_validation.input_tokens": {
+      "n": 15,
+      "median": 749,
+      "max": 1113
+    },
+    "attempt_1.evidence_validation.output_tokens": {
+      "n": 15,
+      "median": 355,
+      "max": 435
+    },
+    "attempt_1.evidence_validation.reasoning_tokens": {
+      "n": 15,
+      "median": 256,
+      "max": 320
+    }
+  },
+  "results": [
+    {
+      "case": "salary_lotte",
+      "run": 1,
+      "cold": false,
+      "client_ms": 7184.5,
+      "timings_ms": {
+        "query_analysis": 0.8,
+        "route_query": 2.1,
+        "attempt_1.query_embedding": 66.9,
+        "attempt_1.vector_search": 4.7,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 2070.3,
+        "attempt_1.attempt_answer_total": 2142.4,
+        "attempt_1.basic_validation": 0.2,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 5015.1,
+        "attempt_1.evidence_validation.server_processing": 4723.0,
+        "attempt_1.evidence_validation.parse": 0.1,
+        "attempt_1.evidence_validation": 5016.0,
+        "agent_total": 7169.9,
+        "total": 7170.1
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 370,
+          "output_tokens": 73,
+          "reasoning_tokens": 0
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 720,
+          "output_tokens": 409,
+          "reasoning_tokens": 256
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "mentions EUR 72,000 with valid citations",
+      "answer": "Lotte van Dijk’s annual gross salary is EUR 72,000 (see [S1], [S2])."
+    },
+    {
+      "case": "salary_thomas",
+      "run": 1,
+      "cold": false,
+      "client_ms": 5191.0,
+      "timings_ms": {
+        "query_analysis": 0.1,
+        "route_query": 0.4,
+        "attempt_1.query_embedding": 68.2,
+        "attempt_1.vector_search": 1.0,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 1397.8,
+        "attempt_1.attempt_answer_total": 1467.7,
+        "attempt_1.basic_validation": 0.1,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 3712.5,
+        "attempt_1.evidence_validation.server_processing": 3411.0,
+        "attempt_1.evidence_validation.parse": 0.0,
+        "attempt_1.evidence_validation": 3713.4,
+        "agent_total": 5187.0,
+        "total": 5187.2
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 388,
+          "output_tokens": 68,
+          "reasoning_tokens": 0
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 731,
+          "output_tokens": 340,
+          "reasoning_tokens": 256
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "mentions EUR 6,750 with valid citations",
+      "answer": "Thomas de Boer’s gross monthly salary is EUR 6,750.00 [S1]."
+    },
+    {
+      "case": "tenure_claim",
+      "run": 1,
+      "cold": false,
+      "client_ms": 7978.6,
+      "timings_ms": {
+        "query_analysis": 0.1,
+        "route_query": 0.3,
+        "attempt_1.query_embedding": 72.2,
+        "attempt_1.vector_search": 0.6,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 3580.8,
+        "attempt_1.attempt_answer_total": 3654.2,
+        "attempt_1.basic_validation": 0.1,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 4314.7,
+        "attempt_1.evidence_validation.server_processing": 4029.0,
+        "attempt_1.evidence_validation.parse": 0.0,
+        "attempt_1.evidence_validation": 4315.5,
+        "agent_total": 7975.1,
+        "total": 7975.3
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 700,
+          "output_tokens": 325,
+          "reasoning_tokens": 256
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 1089,
+          "output_tokens": 299,
+          "reasoning_tokens": 192
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "does not affirm a 10-year tenure",
+      "answer": "No. The employment agreement shows a start date of 03 May 2021, which does not confirm a 10-year tenure at the current employer [S2]. The available documents do not provide evidence that Lotte van Dijk has worked for the employer for at least 10 years."
+    },
+    {
+      "case": "favorite_color",
+      "run": 1,
+      "cold": false,
+      "client_ms": 8028.5,
+      "timings_ms": {
+        "query_analysis": 0.0,
+        "route_query": 0.2,
+        "attempt_1.query_embedding": 72.0,
+        "attempt_1.vector_search": 0.5,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 2323.2,
+        "attempt_1.attempt_answer_total": 2396.2,
+        "attempt_1.basic_validation": 0.1,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 5623.4,
+        "attempt_1.evidence_validation.server_processing": 5316.0,
+        "attempt_1.evidence_validation.parse": 0.0,
+        "attempt_1.evidence_validation": 5624.1,
+        "agent_total": 8025.3,
+        "total": 8025.5
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 665,
+          "output_tokens": 165,
+          "reasoning_tokens": 64
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 1049,
+          "output_tokens": 404,
+          "reasoning_tokens": 256
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "says the documents do not state it, names no colour",
+      "answer": "The available documents do not state Lotte van Dijk’s favorite color. None of the provided records (identity [S1], employer statement [S2], customer email [S3], customer CSV [S4], payslip [S5]) contain that information."
+    },
+    {
+      "case": "conflict",
+      "run": 1,
+      "cold": false,
+      "client_ms": 5.2,
+      "timings_ms": {
+        "query_analysis": 0.1,
+        "route_query": 0.3,
+        "agent_total": 2.7,
+        "total": 2.8
+      },
+      "attempts": 0,
+      "token_usage": {},
+      "search_mode": "conflict",
+      "basic_validation_passed": false,
+      "evidence_validation_passed": false,
+      "passed": true,
+      "rule": "routed to conflict, no sources, no answer generated",
+      "answer": "I cannot answer this question because the customer and loan identifiers conflict.\n\nCustomer/loan mismatch: NB-CUST-3002 does not match NB-LOAN-2101. The verified customer for NB-LOAN-2101 is NB-CUST-3001.\n\nPlease verify the customer and loan IDs and try again."
+    },
+    {
+      "case": "net_salary_citations",
+      "run": 1,
+      "cold": false,
+      "client_ms": 6487.8,
+      "timings_ms": {
+        "query_analysis": 0.0,
+        "route_query": 0.2,
+        "attempt_1.query_embedding": 66.6,
+        "attempt_1.vector_search": 0.4,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 1808.8,
+        "attempt_1.attempt_answer_total": 1876.4,
+        "attempt_1.basic_validation": 0.1,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 4603.0,
+        "attempt_1.evidence_validation.server_processing": 4287.0,
+        "attempt_1.evidence_validation.parse": 0.0,
+        "attempt_1.evidence_validation": 4603.7,
+        "agent_total": 6485.1,
+        "total": 6485.3
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 392,
+          "output_tokens": 110,
+          "reasoning_tokens": 64
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 737,
+          "output_tokens": 305,
+          "reasoning_tokens": 192
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "mentions EUR 4,300, citations map to NB-LOAN-2101 sources",
+      "answer": "Lotte van Dijk's monthly net salary is EUR 4,300.00 [S1]."
+    },
+    {
+      "case": "salary_lotte",
+      "run": 2,
+      "cold": false,
+      "client_ms": 7639.2,
+      "timings_ms": {
+        "query_analysis": 0.0,
+        "route_query": 0.2,
+        "attempt_1.query_embedding": 0.0,
+        "attempt_1.vector_search": 1.1,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 1940.9,
+        "attempt_1.attempt_answer_total": 1942.6,
+        "attempt_1.basic_validation": 0.1,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 5687.6,
+        "attempt_1.evidence_validation.server_processing": 5371.0,
+        "attempt_1.evidence_validation.parse": 0.0,
+        "attempt_1.evidence_validation": 5688.4,
+        "agent_total": 7636.0,
+        "total": 7636.2
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 370,
+          "output_tokens": 81,
+          "reasoning_tokens": 0
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 716,
+          "output_tokens": 334,
+          "reasoning_tokens": 192
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "mentions EUR 72,000 with valid citations",
+      "answer": "Lotte van Dijk's annual gross salary is EUR 72,000 [S1][S2]."
+    },
+    {
+      "case": "salary_thomas",
+      "run": 2,
+      "cold": false,
+      "client_ms": 7514.5,
+      "timings_ms": {
+        "query_analysis": 0.1,
+        "route_query": 0.3,
+        "attempt_1.query_embedding": 0.0,
+        "attempt_1.vector_search": 1.3,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 2310.7,
+        "attempt_1.attempt_answer_total": 2312.6,
+        "attempt_1.basic_validation": 0.1,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 5192.5,
+        "attempt_1.evidence_validation.server_processing": 4896.0,
+        "attempt_1.evidence_validation.parse": 0.0,
+        "attempt_1.evidence_validation": 5193.3,
+        "agent_total": 7511.2,
+        "total": 7511.3
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 388,
+          "output_tokens": 94,
+          "reasoning_tokens": 64
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 732,
+          "output_tokens": 357,
+          "reasoning_tokens": 256
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "mentions EUR 6,750 with valid citations",
+      "answer": "Thomas de Boer’s gross monthly salary is EUR 6,750.00. [S1]"
+    },
+    {
+      "case": "tenure_claim",
+      "run": 2,
+      "cold": false,
+      "client_ms": 7999.2,
+      "timings_ms": {
+        "query_analysis": 0.1,
+        "route_query": 0.2,
+        "attempt_1.query_embedding": 0.0,
+        "attempt_1.vector_search": 1.5,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 3071.5,
+        "attempt_1.attempt_answer_total": 3073.7,
+        "attempt_1.basic_validation": 0.1,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 4916.0,
+        "attempt_1.evidence_validation.server_processing": 4623.0,
+        "attempt_1.evidence_validation.parse": 0.0,
+        "attempt_1.evidence_validation": 4916.8,
+        "agent_total": 7995.6,
+        "total": 7995.8
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 700,
+          "output_tokens": 275,
+          "reasoning_tokens": 192
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 1091,
+          "output_tokens": 381,
+          "reasoning_tokens": 256
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "does not affirm a 10-year tenure",
+      "answer": "No. The employment agreement lists a start date of 03 May 2021, so it does not confirm employment of at least 10 years with the current employer [S2]. (Other documents show current employment but do not indicate a 10‑year tenure [S1, S3].)"
+    },
+    {
+      "case": "favorite_color",
+      "run": 2,
+      "cold": false,
+      "client_ms": 6399.6,
+      "timings_ms": {
+        "query_analysis": 0.1,
+        "route_query": 0.2,
+        "attempt_1.query_embedding": 0.0,
+        "attempt_1.vector_search": 1.4,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 2392.3,
+        "attempt_1.attempt_answer_total": 2394.3,
+        "attempt_1.basic_validation": 0.1,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 3995.8,
+        "attempt_1.evidence_validation.server_processing": 3668.0,
+        "attempt_1.evidence_validation.parse": 0.0,
+        "attempt_1.evidence_validation": 3996.6,
+        "agent_total": 6396.2,
+        "total": 6396.4
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 665,
+          "output_tokens": 189,
+          "reasoning_tokens": 64
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 1055,
+          "output_tokens": 323,
+          "reasoning_tokens": 192
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "says the documents do not state it, names no colour",
+      "answer": "The available documents do not state Lotte van Dijk's favorite color. None of the provided records (identity/residence [S1], employer statement [S2], customer email [S3], customer CSV [S4], or payslip [S5]) contain information about her favorite color."
+    },
+    {
+      "case": "conflict",
+      "run": 2,
+      "cold": false,
+      "client_ms": 5.6,
+      "timings_ms": {
+        "query_analysis": 0.1,
+        "route_query": 0.3,
+        "agent_total": 2.8,
+        "total": 2.9
+      },
+      "attempts": 0,
+      "token_usage": {},
+      "search_mode": "conflict",
+      "basic_validation_passed": false,
+      "evidence_validation_passed": false,
+      "passed": true,
+      "rule": "routed to conflict, no sources, no answer generated",
+      "answer": "I cannot answer this question because the customer and loan identifiers conflict.\n\nCustomer/loan mismatch: NB-CUST-3002 does not match NB-LOAN-2101. The verified customer for NB-LOAN-2101 is NB-CUST-3001.\n\nPlease verify the customer and loan IDs and try again."
+    },
+    {
+      "case": "net_salary_citations",
+      "run": 2,
+      "cold": false,
+      "client_ms": 6877.1,
+      "timings_ms": {
+        "query_analysis": 0.0,
+        "route_query": 0.2,
+        "attempt_1.query_embedding": 0.0,
+        "attempt_1.vector_search": 1.2,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 2046.1,
+        "attempt_1.attempt_answer_total": 2047.8,
+        "attempt_1.basic_validation": 0.1,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 4821.4,
+        "attempt_1.evidence_validation.server_processing": 4532.0,
+        "attempt_1.evidence_validation.parse": 0.0,
+        "attempt_1.evidence_validation": 4822.1,
+        "agent_total": 6874.5,
+        "total": 6874.6
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 392,
+          "output_tokens": 144,
+          "reasoning_tokens": 64
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 752,
+          "output_tokens": 435,
+          "reasoning_tokens": 320
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "mentions EUR 4,300, citations map to NB-LOAN-2101 sources",
+      "answer": "Lotte van Dijk's monthly net salary is EUR 4,300.00 (as shown on the September 2026 payslip) [S1][S2]."
+    },
+    {
+      "case": "salary_lotte",
+      "run": 3,
+      "cold": false,
+      "client_ms": 6074.6,
+      "timings_ms": {
+        "query_analysis": 0.0,
+        "route_query": 0.2,
+        "attempt_1.query_embedding": 0.0,
+        "attempt_1.vector_search": 1.1,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 1824.7,
+        "attempt_1.attempt_answer_total": 1826.4,
+        "attempt_1.basic_validation": 0.1,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 4238.9,
+        "attempt_1.evidence_validation.server_processing": 3949.0,
+        "attempt_1.evidence_validation.parse": 0.0,
+        "attempt_1.evidence_validation": 4239.7,
+        "agent_total": 6071.3,
+        "total": 6071.4
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 370,
+          "output_tokens": 106,
+          "reasoning_tokens": 64
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 717,
+          "output_tokens": 384,
+          "reasoning_tokens": 256
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "mentions EUR 72,000 with valid citations",
+      "answer": "Lotte van Dijk's annual gross salary is EUR 72,000. [S1][S2]"
+    },
+    {
+      "case": "salary_thomas",
+      "run": 3,
+      "cold": false,
+      "client_ms": 6085.9,
+      "timings_ms": {
+        "query_analysis": 0.1,
+        "route_query": 0.3,
+        "attempt_1.query_embedding": 0.0,
+        "attempt_1.vector_search": 1.3,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 1544.1,
+        "attempt_1.attempt_answer_total": 1546.1,
+        "attempt_1.basic_validation": 0.1,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 4529.7,
+        "attempt_1.evidence_validation.server_processing": 4202.0,
+        "attempt_1.evidence_validation.parse": 0.0,
+        "attempt_1.evidence_validation": 4530.5,
+        "agent_total": 6082.3,
+        "total": 6082.5
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 388,
+          "output_tokens": 85,
+          "reasoning_tokens": 0
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 731,
+          "output_tokens": 294,
+          "reasoning_tokens": 192
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "mentions EUR 6,750 with valid citations",
+      "answer": "Thomas de Boer's gross monthly salary is EUR 6,750.00 [S1]."
+    },
+    {
+      "case": "tenure_claim",
+      "run": 3,
+      "cold": false,
+      "client_ms": 9731.5,
+      "timings_ms": {
+        "query_analysis": 0.1,
+        "route_query": 0.3,
+        "attempt_1.query_embedding": 0.0,
+        "attempt_1.vector_search": 1.6,
+        "attempt_1.context_assembly": 0.1,
+        "attempt_1.answer_generation": 3838.6,
+        "attempt_1.attempt_answer_total": 3841.0,
+        "attempt_1.basic_validation": 0.1,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 5880.4,
+        "attempt_1.evidence_validation.server_processing": 5567.0,
+        "attempt_1.evidence_validation.parse": 0.0,
+        "attempt_1.evidence_validation": 5881.2,
+        "agent_total": 9727.9,
+        "total": 9728.1
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 700,
+          "output_tokens": 293,
+          "reasoning_tokens": 192
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 1113,
+          "output_tokens": 355,
+          "reasoning_tokens": 192
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "does not affirm a 10-year tenure",
+      "answer": "No. The employment agreement lists Lotte van Dijk’s start date as 03 May 2021, which does not confirm employment of at least 10 years [S2]. Other provided documents (employer statement, payslip) do not state an earlier start date or duration, so there is insufficient evidence to conclude she has worked for the same employer for 10 years [S1][S3]."
+    },
+    {
+      "case": "favorite_color",
+      "run": 3,
+      "cold": false,
+      "client_ms": 6804.2,
+      "timings_ms": {
+        "query_analysis": 0.0,
+        "route_query": 0.2,
+        "attempt_1.query_embedding": 0.0,
+        "attempt_1.vector_search": 1.3,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 3539.4,
+        "attempt_1.attempt_answer_total": 3541.3,
+        "attempt_1.basic_validation": 0.1,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 3255.9,
+        "attempt_1.evidence_validation.server_processing": 2959.0,
+        "attempt_1.evidence_validation.parse": 0.0,
+        "attempt_1.evidence_validation": 3256.4,
+        "agent_total": 6801.8,
+        "total": 6801.9
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 665,
+          "output_tokens": 178,
+          "reasoning_tokens": 64
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 1050,
+          "output_tokens": 220,
+          "reasoning_tokens": 64
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "says the documents do not state it, names no colour",
+      "answer": "The available documents do not state Lotte van Dijk’s favorite color. None of the provided records (identity [S1], employer statement [S2], customer email [S3], customer CSV [S4], or payslip [S5]) include that information."
+    },
+    {
+      "case": "conflict",
+      "run": 3,
+      "cold": false,
+      "client_ms": 2.5,
+      "timings_ms": {
+        "query_analysis": 0.0,
+        "route_query": 0.2,
+        "agent_total": 1.2,
+        "total": 1.3
+      },
+      "attempts": 0,
+      "token_usage": {},
+      "search_mode": "conflict",
+      "basic_validation_passed": false,
+      "evidence_validation_passed": false,
+      "passed": true,
+      "rule": "routed to conflict, no sources, no answer generated",
+      "answer": "I cannot answer this question because the customer and loan identifiers conflict.\n\nCustomer/loan mismatch: NB-CUST-3002 does not match NB-LOAN-2101. The verified customer for NB-LOAN-2101 is NB-CUST-3001.\n\nPlease verify the customer and loan IDs and try again."
+    },
+    {
+      "case": "net_salary_citations",
+      "run": 3,
+      "cold": false,
+      "client_ms": 7158.1,
+      "timings_ms": {
+        "query_analysis": 0.0,
+        "route_query": 0.1,
+        "attempt_1.query_embedding": 0.0,
+        "attempt_1.vector_search": 0.6,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 2605.9,
+        "attempt_1.attempt_answer_total": 2606.9,
+        "attempt_1.basic_validation": 0.1,
+        "attempt_1.evidence_validation.prompt_prep": 0.0,
+        "attempt_1.evidence_validation.llm_request": 4544.8,
+        "attempt_1.evidence_validation.server_processing": 4257.0,
+        "attempt_1.evidence_validation.parse": 0.0,
+        "attempt_1.evidence_validation": 4545.5,
+        "agent_total": 7156.0,
+        "total": 7156.1
+      },
+      "attempts": 1,
+      "token_usage": {
+        "attempt_1.answer_generation": {
+          "input_tokens": 392,
+          "output_tokens": 136,
+          "reasoning_tokens": 64
+        },
+        "attempt_1.evidence_validation": {
+          "input_tokens": 749,
+          "output_tokens": 388,
+          "reasoning_tokens": 256
+        }
+      },
+      "search_mode": "semantic",
+      "basic_validation_passed": true,
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "mentions EUR 4,300, citations map to NB-LOAN-2101 sources",
+      "answer": "Lotte van Dijk’s monthly net salary is EUR 4,300.00 (Payroll period: September 2026) [S1][S2]."
+    }
+  ]
+}

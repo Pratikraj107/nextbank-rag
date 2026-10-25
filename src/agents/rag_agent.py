@@ -5,22 +5,48 @@ import re
 from typing import Any, TypedDict
 
 from langgraph.graph import END, START, StateGraph
-from openai import OpenAI
 
-from src.embeddings.semantic_search import search
-from src.rag.answer_question import answer_question
+from src.llm.client import create_response, get_openai_client
+from src.observability.timing import agent_attempt, timed_stage
+from src.rag.answer_question import answer_question, llm_options, retrieve_evidence
 from src.retrieval.exact_search import exact_search
-from src.retrieval.query_analyzer import QueryAnalyzer
+from src.retrieval.query_analyzer import QueryAnalysis, QueryAnalyzer
 
 
 # ============================================================
 # CONFIGURATION
 # ============================================================
 
-client = OpenAI()
-
 VALIDATION_MODEL = os.getenv("OPENAI_MODEL", "gpt-5-mini")
+# Measured validations used at most ~1,400 output tokens (reasoning
+# included); the cap only stops runaway responses.
+VALIDATION_MAX_OUTPUT_TOKENS = os.getenv("VALIDATION_MAX_OUTPUT_TOKENS", "4000")
+# "low" matched the default effort's decision on every case of the
+# validator benchmark (48/48) at about half the latency. "minimal" was
+# faster but accepted an identity link the default rejects, and
+# gpt-5-nano accepted a wrong salary, so neither is used.
+# See docs/latency-optimization.md, section 12.
+VALIDATION_REASONING_EFFORT = os.getenv("VALIDATION_REASONING_EFFORT", "low")
+VALIDATION_STRUCTURED_OUTPUT = os.getenv("VALIDATION_STRUCTURED_OUTPUT", "false").lower() == "true"
+
 MAX_ATTEMPTS = 2
+# Attempt 1 retrieves FIRST_TOP_K chunks; a retry widens to RETRY_TOP_K.
+FIRST_TOP_K = 5
+RETRY_TOP_K = 8
+
+# Why the latest attempt failed. Only some failures are worth retrying:
+#   citation       - the answer's citation labels were missing or invalid;
+#                    a new generation can fix this.
+#   unsupported    - the evidence validator rejected the answer; retry
+#                    only if a wider search would add new evidence.
+#   no_evidence    - retrieval found nothing; the same filters would
+#                    find nothing again, so do not retry.
+#   validator_error- the validator call failed; regenerating the answer
+#                    cannot fix that, so abstain.
+FAILURE_CITATION = "citation"
+FAILURE_UNSUPPORTED = "unsupported"
+FAILURE_NO_EVIDENCE = "no_evidence"
+FAILURE_VALIDATOR_ERROR = "validator_error"
 
 
 # ============================================================
@@ -39,6 +65,8 @@ class AgentState(TypedDict):
     exact_term: str
     entity_conflict: str
     query_analysis: dict[str, Any]
+    failure_reason: str
+    retry_can_add_evidence: bool
 
 
 # ============================================================
@@ -85,7 +113,8 @@ def route_query(state: AgentState) -> dict:
                 }
 
     # Analyze entity relationships before semantic retrieval.
-    analysis = QueryAnalyzer().analyze(question)
+    with timed_stage("query_analysis"):
+        analysis = QueryAnalyzer().analyze(question)
     analysis_data = analysis.to_dict()
 
     if analysis.entity_conflict:
@@ -171,11 +200,12 @@ def exact_search_node(state: AgentState) -> dict:
             "sources": [],
         }
 
-    result = exact_search(
-        term,
-        case_sensitive=False,
-        max_results=20,
-    )
+    with timed_stage("exact_search"):
+        result = exact_search(
+            term,
+            case_sensitive=False,
+            max_results=20,
+        )
 
     documents_scanned = result.get("documents_scanned", 0)
     documents_matched = result.get("documents_matched", 0)
@@ -236,17 +266,20 @@ def answer_node(state: AgentState) -> dict:
     """
 
     attempt = state.get("attempts", 0) + 1
-    top_k = 5 if attempt == 1 else 8
+    top_k = FIRST_TOP_K if attempt == 1 else RETRY_TOP_K
 
     print(
         f"\n[Agent] Attempt {attempt}: "
         f"retrieving evidence (top_k={top_k})"
     )
 
-    result = answer_question(
-        question=state["question"],
-        top_k=top_k,
-    )
+    with agent_attempt(attempt), timed_stage("attempt_answer_total"):
+        result = answer_question(
+            question=state["question"],
+            top_k=top_k,
+            # Reuse the analysis from route_query instead of repeating it.
+            analysis=_analysis_from_state(state),
+        )
 
     answer = result.get("answer", "")
     sources = result.get("sources", [])
@@ -258,7 +291,18 @@ def answer_node(state: AgentState) -> dict:
         "is_valid": False,
         "semantic_valid": False,
         "validation_feedback": "",
+        "failure_reason": "",
+        "retry_can_add_evidence": False,
     }
+
+
+def _analysis_from_state(state: AgentState) -> QueryAnalysis | None:
+    data = state.get("query_analysis") or {}
+
+    if not data:
+        return None
+
+    return QueryAnalysis(**data)
 
 
 # ============================================================
@@ -266,6 +310,11 @@ def answer_node(state: AgentState) -> dict:
 # ============================================================
 
 def validate_basic_node(state: AgentState) -> dict:
+    with agent_attempt(state.get("attempts", 0)), timed_stage("basic_validation"):
+        return _validate_basic(state)
+
+
+def _validate_basic(state: AgentState) -> dict:
     """
     Perform preliminary checks on retrieved evidence and
     citation labels before invoking the LLM evidence validator.
@@ -282,6 +331,7 @@ def validate_basic_node(state: AgentState) -> dict:
         return {
             "is_valid": False,
             "validation_feedback": feedback,
+            "failure_reason": FAILURE_NO_EVIDENCE,
         }
 
     cited_labels = re.findall(
@@ -332,6 +382,7 @@ def validate_basic_node(state: AgentState) -> dict:
         return {
             "is_valid": False,
             "validation_feedback": feedback,
+            "failure_reason": FAILURE_CITATION,
         }
 
     if not unique_labels:
@@ -342,6 +393,23 @@ def validate_basic_node(state: AgentState) -> dict:
         return {
             "is_valid": False,
             "validation_feedback": feedback,
+            "failure_reason": FAILURE_CITATION,
+        }
+
+    cited_sources = [
+        sources[int(label[1:]) - 1]
+        for label in unique_labels
+    ]
+
+    metadata_issue = _cited_metadata_issue(state, cited_sources)
+
+    if metadata_issue:
+        print(f"[Basic Validator] {metadata_issue}")
+
+        return {
+            "is_valid": False,
+            "validation_feedback": metadata_issue,
+            "failure_reason": FAILURE_CITATION,
         }
 
     print("[Basic Validator] Checks passed.")
@@ -352,13 +420,55 @@ def validate_basic_node(state: AgentState) -> dict:
     }
 
 
+def _cited_metadata_issue(state: AgentState, cited_sources: list[dict]) -> str | None:
+    """
+    Deterministic checks on the sources an answer cites:
+    - each has the metadata needed to attribute it (file, document type);
+    - none belongs to a different customer or loan than the question names.
+
+    Sources without a customer or loan ID (e.g. some CSV records) are not
+    treated as mismatches; the evidence validator still judges them.
+    """
+    analysis = state.get("query_analysis") or {}
+    expected_customer = analysis.get("customer_id")
+    expected_loan = analysis.get("loan_id")
+
+    for source in cited_sources:
+        label = source.get("source_id", "?")
+
+        if not source.get("source") or not source.get("document_type"):
+            return f"Cited source {label} is missing file or document-type metadata."
+
+        customer = source.get("customer_id")
+        loan = source.get("loan_id")
+
+        if expected_customer and customer and customer != expected_customer:
+            return (
+                f"Cited source {label} belongs to {customer}, "
+                f"but the question is about {expected_customer}."
+            )
+
+        if expected_loan and loan and loan != expected_loan:
+            return (
+                f"Cited source {label} belongs to {loan}, "
+                f"but the question is about {expected_loan}."
+            )
+
+    return None
+
+
 def route_after_basic_validation(state: AgentState) -> str:
-    """Continue validation, retry retrieval, or abstain."""
+    """Continue validation, retry generation, or abstain."""
 
     if state.get("is_valid"):
         return "evidence_check"
 
-    if state.get("attempts", 0) < MAX_ATTEMPTS:
+    # Only citation problems can be fixed by generating again. An empty
+    # retrieval would return the same nothing on a second attempt.
+    if (
+        state.get("failure_reason") == FAILURE_CITATION
+        and state.get("attempts", 0) < MAX_ATTEMPTS
+    ):
         return "retry"
 
     return "abstain"
@@ -369,15 +479,43 @@ def route_after_basic_validation(state: AgentState) -> str:
 # ============================================================
 
 def evidence_validation_node(state: AgentState) -> dict:
-    """
-    Independently evaluate the answer against retrieved evidence.
+    with agent_attempt(state.get("attempts", 0)), timed_stage("evidence_validation"):
+        return _validate_evidence(state)
 
-    Separates claim support, identity linkage, and status linkage.
-    """
 
-    question = state["question"]
-    answer = state["answer"]
-    sources = state.get("sources", [])
+# Structured output makes the API enforce the verdict's JSON shape.
+VALIDATION_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "supported": {"type": "boolean"},
+        "identity_link_proven": {"type": "boolean"},
+        "status_link_proven": {"type": "boolean"},
+        "reason": {"type": "string"},
+        "issues": {"type": "array", "items": {"type": "string"}},
+    },
+    "required": [
+        "supported",
+        "identity_link_proven",
+        "status_link_proven",
+        "reason",
+        "issues",
+    ],
+    "additionalProperties": False,
+}
+
+
+def build_validation_prompt(
+    question: str,
+    answer: str,
+    sources: list[dict],
+) -> str | None:
+    """Build the validator prompt, or None when there is no usable evidence."""
+
+    if not any(
+        source.get("content") or source.get("text")
+        for source in sources
+    ):
+        return None
 
     evidence_blocks = []
 
@@ -399,20 +537,7 @@ Document content:
 
     evidence_text = "\n".join(evidence_blocks)
 
-    if not evidence_text.strip() or not any(
-        source.get("content") or source.get("text")
-        for source in sources
-    ):
-        feedback = "No usable evidence text was retrieved."
-
-        print(f"[Evidence Validator] {feedback}")
-
-        return {
-            "semantic_valid": False,
-            "validation_feedback": feedback,
-        }
-
-    prompt = f"""
+    return f"""
 You are an independent evidence validator for a financial
 document question-answering system.
 
@@ -497,47 +622,125 @@ All three Boolean fields must be actual JSON booleans.
 The issues field must be a list of strings.
 """
 
+
+def parse_validation_output(raw_output: str) -> dict:
+    """Parse and strictly check the validator's JSON verdict."""
+
+    raw_output = raw_output.strip()
+
+    if raw_output.startswith("```"):
+        raw_output = re.sub(
+            r"^```(?:json)?\s*",
+            "",
+            raw_output,
+            count=1,
+            flags=re.IGNORECASE,
+        )
+        raw_output = re.sub(r"\s*```$", "", raw_output)
+
+    result = json.loads(raw_output)
+
+    for field in (
+        "supported",
+        "identity_link_proven",
+        "status_link_proven",
+    ):
+        if type(result.get(field)) is not bool:
+            raise ValueError(
+                f"Invalid or missing Boolean field: {field}"
+            )
+
+    if not isinstance(result.get("reason"), str):
+        raise ValueError("Missing or invalid reason field.")
+
+    if not isinstance(result.get("issues"), list):
+        raise ValueError("Missing or invalid issues list.")
+
+    if not all(
+        isinstance(issue, str)
+        for issue in result["issues"]
+    ):
+        raise ValueError("Every issue must be a string.")
+
+    return result
+
+
+def run_evidence_validation(
+    question: str,
+    answer: str,
+    sources: list[dict],
+    model: str | None = None,
+    reasoning_effort: str | None = None,
+    structured_output: bool | None = None,
+) -> dict | None:
+    """
+    Run the semantic evidence check with one LLM call.
+
+    Returns the parsed verdict, or None when there is no usable evidence.
+    Raises if the call fails or the verdict is malformed. Arguments left
+    as None use the configured defaults.
+    """
+    with timed_stage("evidence_validation.prompt_prep"):
+        prompt = build_validation_prompt(question, answer, sources)
+
+    if prompt is None:
+        return None
+
+    effort = reasoning_effort or VALIDATION_REASONING_EFFORT
+    use_schema = (
+        VALIDATION_STRUCTURED_OUTPUT
+        if structured_output is None
+        else structured_output
+    )
+
+    options = llm_options(VALIDATION_MAX_OUTPUT_TOKENS, effort)
+
+    if use_schema:
+        options["text"] = {
+            "format": {
+                "type": "json_schema",
+                "name": "evidence_validation",
+                "schema": VALIDATION_SCHEMA,
+                "strict": True,
+            }
+        }
+
+    response = create_response(
+        get_openai_client(),
+        "evidence_validation",
+        model=model or VALIDATION_MODEL,
+        input=prompt,
+        **options,
+    )
+
+    with timed_stage("evidence_validation.parse"):
+        return parse_validation_output(response.output_text)
+
+
+def _validate_evidence(state: AgentState) -> dict:
+    """
+    Independently evaluate the answer against retrieved evidence.
+
+    Separates claim support, identity linkage, and status linkage.
+    """
+
     try:
-        response = client.responses.create(
-            model=VALIDATION_MODEL,
-            input=prompt,
+        result = run_evidence_validation(
+            question=state["question"],
+            answer=state["answer"],
+            sources=state.get("sources", []),
         )
 
-        raw_output = response.output_text.strip()
+        if result is None:
+            feedback = "No usable evidence text was retrieved."
 
-        if raw_output.startswith("```"):
-            raw_output = re.sub(
-                r"^```(?:json)?\s*",
-                "",
-                raw_output,
-                count=1,
-                flags=re.IGNORECASE,
-            )
-            raw_output = re.sub(r"\s*```$", "", raw_output)
+            print(f"[Evidence Validator] {feedback}")
 
-        result = json.loads(raw_output)
-
-        for field in (
-            "supported",
-            "identity_link_proven",
-            "status_link_proven",
-        ):
-            if type(result.get(field)) is not bool:
-                raise ValueError(
-                    f"Invalid or missing Boolean field: {field}"
-                )
-
-        if not isinstance(result.get("reason"), str):
-            raise ValueError("Missing or invalid reason field.")
-
-        if not isinstance(result.get("issues"), list):
-            raise ValueError("Missing or invalid issues list.")
-
-        if not all(
-            isinstance(issue, str)
-            for issue in result["issues"]
-        ):
-            raise ValueError("Every issue must be a string.")
+            return {
+                "semantic_valid": False,
+                "validation_feedback": feedback,
+                "failure_reason": FAILURE_NO_EVIDENCE,
+            }
 
         semantic_valid = (
             result["supported"]
@@ -555,51 +758,86 @@ The issues field must be a list of strings.
             f"Issues: {result['issues']}"
         )
 
-        print(
-            f"[Evidence Validator] Supported: "
-            f"{result['supported']}"
-        )
-        print(
-            f"[Evidence Validator] Identity link proven: "
-            f"{result['identity_link_proven']}"
-        )
-        print(
-            f"[Evidence Validator] Status link proven: "
-            f"{result['status_link_proven']}"
-        )
-        print(
-            f"[Evidence Validator] Reason: {result['reason']}"
-        )
-        print(
-            f"[Evidence Validator] Issues: {result['issues']}"
-        )
-
-        return {
-            "semantic_valid": semantic_valid,
-            "validation_feedback": feedback,
-        }
+        print(f"[Evidence Validator] Supported: {result['supported']}")
+        print(f"[Evidence Validator] Identity link proven: {result['identity_link_proven']}")
+        print(f"[Evidence Validator] Status link proven: {result['status_link_proven']}")
+        print(f"[Evidence Validator] Reason: {result['reason']}")
+        print(f"[Evidence Validator] Issues: {result['issues']}")
 
     except Exception as exc:
         feedback = (
             "Evidence validation failed. The answer cannot be "
-            f"trusted until validation succeeds. Error: {exc}"
+            f"trusted until validation succeeds. Error: {type(exc).__name__}"
         )
 
-        print(f"[Evidence Validator] {feedback}")
+        print(f"[Evidence Validator] {feedback}: {exc}")
 
         return {
             "semantic_valid": False,
             "validation_feedback": feedback,
+            "failure_reason": FAILURE_VALIDATOR_ERROR,
         }
+
+    if semantic_valid:
+        return {
+            "semantic_valid": True,
+            "validation_feedback": feedback,
+            "failure_reason": "",
+        }
+
+    return {
+        "semantic_valid": False,
+        "validation_feedback": feedback,
+        "failure_reason": FAILURE_UNSUPPORTED,
+        "retry_can_add_evidence": _retry_can_add_evidence(state),
+    }
+
+
+def _retry_can_add_evidence(state: AgentState) -> bool:
+    """
+    Check, without calling the LLM, whether the wider retry search
+    would give the generator any chunk it has not already seen.
+
+    Retrieval is deterministic and the query embedding is cached, so
+    this costs a few milliseconds.
+    """
+    if state.get("attempts", 0) >= MAX_ATTEMPTS:
+        return False
+
+    with timed_stage("retry_evidence_check"):
+        _, _, _, wider_sources = retrieve_evidence(
+            question=state["question"],
+            top_k=RETRY_TOP_K,
+            analysis=_analysis_from_state(state),
+        )
+
+    def chunk_keys(sources: list[dict]) -> set[tuple]:
+        return {
+            (source.get("source"), source.get("chunk_index"))
+            for source in sources
+        }
+
+    new_chunks = chunk_keys(wider_sources) - chunk_keys(state.get("sources", []))
+
+    print(f"[Agent] Retry would add {len(new_chunks)} new evidence chunk(s).")
+
+    return bool(new_chunks)
 
 
 def route_after_evidence_validation(state: AgentState) -> str:
-    """Finish, retry retrieval, or abstain after evidence validation."""
+    """Finish, retry with wider retrieval, or abstain."""
 
     if state.get("semantic_valid"):
         return "finish"
 
-    if state.get("attempts", 0) < MAX_ATTEMPTS:
+    # A retry is only useful when the validator rejected the answer and
+    # the wider search would actually supply new evidence. Validator
+    # errors and missing evidence are not fixed by generating again.
+    if (
+        state.get("failure_reason") == FAILURE_UNSUPPORTED
+        and state.get("retry_can_add_evidence")
+        and state.get("attempts", 0) < MAX_ATTEMPTS
+    ):
         return "retry"
 
     return "abstain"
@@ -639,10 +877,18 @@ def abstain_node(state: AgentState) -> dict:
 # BUILD THE LANGGRAPH WORKFLOW
 # ============================================================
 
+def _timed_node(stage: str, node):
+    def wrapper(state: AgentState) -> dict:
+        with timed_stage(stage):
+            return node(state)
+
+    return wrapper
+
+
 def build_agent():
     graph = StateGraph(AgentState)
 
-    graph.add_node("route_query", route_query)
+    graph.add_node("route_query", _timed_node("route_query", route_query))
     graph.add_node("entity_conflict", entity_conflict_node)
     graph.add_node("exact_search", exact_search_node)
     graph.add_node("answer", answer_node)
@@ -716,6 +962,8 @@ def ask_agent(question: str) -> dict:
         "exact_term": "",
         "entity_conflict": "",
         "query_analysis": {},
+        "failure_reason": "",
+        "retry_can_add_evidence": False,
     }
 
     return agent.invoke(initial_state)

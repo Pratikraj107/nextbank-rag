@@ -1,6 +1,45 @@
 
+import csv
 import re
 from dataclasses import asdict, dataclass
+from functools import lru_cache
+from pathlib import Path
+
+ENTERPRISE_CSV_DIR = (
+    Path(__file__).resolve().parents[2] / "data" / "raw" / "enterprise_csv"
+)
+
+
+@lru_cache(maxsize=1)
+def load_verified_entities() -> tuple[dict[str, str], dict[str, str]]:
+    """
+    Load customer names and loan→customer links from the enterprise CSVs
+    once per process. Returns (name→customer_id, loan_id→customer_id).
+    Missing files yield empty maps; the analyzer's built-in entries still apply.
+    """
+    customers: dict[str, str] = {}
+    loans: dict[str, str] = {}
+
+    customers_file = ENTERPRISE_CSV_DIR / "customers.csv"
+    loans_file = ENTERPRISE_CSV_DIR / "loan_applications.csv"
+
+    if customers_file.exists():
+        with customers_file.open(encoding="utf-8-sig", newline="") as file:
+            for row in csv.DictReader(file):
+                name = (row.get("name") or "").strip().lower()
+                customer_id = (row.get("customer_id") or "").strip().upper()
+                if name and customer_id:
+                    customers[name] = customer_id
+
+    if loans_file.exists():
+        with loans_file.open(encoding="utf-8-sig", newline="") as file:
+            for row in csv.DictReader(file):
+                loan_id = (row.get("loan_id") or "").strip().upper()
+                customer_id = (row.get("customer_id") or "").strip().upper()
+                if loan_id and customer_id:
+                    loans[loan_id] = customer_id
+
+    return customers, loans
 
 
 @dataclass
@@ -35,6 +74,12 @@ class QueryAnalyzer:
         "NB-LOAN-2101": "NB-CUST-3001",
         "NB-LOAN-2102": "NB-CUST-3002",
     }
+
+    def __init__(self) -> None:
+        csv_customers, csv_loans = load_verified_entities()
+        # Instance copies so the class-level defaults are never mutated.
+        self.CUSTOMER_MAP = {**self.CUSTOMER_MAP, **csv_customers}
+        self.LOAN_CUSTOMER_MAP = {**self.LOAN_CUSTOMER_MAP, **csv_loans}
 
     def analyze(self, query: str) -> QueryAnalysis:
         normalized_query = query.lower().strip()
