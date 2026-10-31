@@ -23,4 +23,12 @@ export interface AssistantMessage {
 
 export type Message = UserMessage | AssistantMessage
 
+export type View = 'assistant' | 'documents' | 'activity'
+
+/** Text to place in the chat composer; `nonce` makes repeated drafts apply again. */
+export interface ComposerDraft {
+  text: string
+  nonce: number
+}
+
 export type ConnectionState = 'checking' | 'connected' | 'disconnected'

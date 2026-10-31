@@ -4,6 +4,7 @@ import threading
 import time
 from collections import OrderedDict
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
 from sentence_transformers import SentenceTransformer
@@ -13,7 +14,8 @@ from src.observability.timing import timed_stage
 from src.retrieval.query_analyzer import QueryAnalysis, QueryAnalyzer
 
 
-INPUT_FILE = "data/processed/chunk_embeddings.jsonl"
+# Absolute, so the API finds it whatever directory it is started from.
+INPUT_FILE = str(Path(__file__).resolve().parents[2] / "data" / "processed" / "chunk_embeddings.jsonl")
 MODEL_NAME = "BAAI/bge-base-en-v1.5"
 
 

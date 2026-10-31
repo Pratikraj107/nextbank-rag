@@ -10,6 +10,8 @@ const HEALTH_TIMEOUT_MS = 5_000
 // One question can run retrieval and several LLM calls (answer,
 // evidence validation, and a possible retry), so allow plenty of time.
 const CHAT_TIMEOUT_MS = 180_000
+// Document browsing only reads cached data, so it should answer quickly.
+const READ_TIMEOUT_MS = 15_000
 
 // ------------------------------------------------------------
 // Types mirroring the backend schema
@@ -70,15 +72,15 @@ export class ApiError extends Error {
 
 type JsonRecord = Record<string, unknown>
 
-function isRecord(value: unknown): value is JsonRecord {
+export function isRecord(value: unknown): value is JsonRecord {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
-function optionalString(value: unknown): string | null {
+export function optionalString(value: unknown): string | null {
   return typeof value === 'string' && value.trim() !== '' ? value : null
 }
 
-function optionalNumber(value: unknown): number | null {
+export function optionalNumber(value: unknown): number | null {
   return typeof value === 'number' && Number.isFinite(value) ? value : null
 }
 
@@ -86,7 +88,7 @@ function optionalBoolean(value: unknown): boolean | null {
   return typeof value === 'boolean' ? value : null
 }
 
-function malformed(detail: string): ApiError {
+export function malformed(detail: string): ApiError {
   return new ApiError('malformed', `Malformed response from the assistant: ${detail}`)
 }
 
@@ -180,7 +182,22 @@ async function readJson(response: Response): Promise<unknown> {
 }
 
 /** Build a user-safe message from a non-2xx response. */
-async function httpError(response: Response): Promise<ApiError> {
+interface ErrorWording {
+  rejected: string
+  failed: string
+}
+
+const CHAT_WORDING: ErrorWording = {
+  rejected: 'The question was not accepted. Make sure it is between 1 and 2,000 characters.',
+  failed: 'The assistant returned an error',
+}
+
+const READ_WORDING: ErrorWording = {
+  rejected: 'The request was not accepted. Check the search and filter values.',
+  failed: 'The server returned an error',
+}
+
+async function httpError(response: Response, wording: ErrorWording = CHAT_WORDING): Promise<ApiError> {
   let detail: unknown = null
 
   try {
@@ -191,11 +208,7 @@ async function httpError(response: Response): Promise<ApiError> {
   }
 
   if (response.status === 422) {
-    return new ApiError(
-      'http',
-      'The question was not accepted. Make sure it is between 1 and 2,000 characters.',
-      response.status,
-    )
+    return new ApiError('http', wording.rejected, response.status)
   }
 
   // FastAPI's own `detail` strings are short and user-facing; anything
@@ -206,7 +219,7 @@ async function httpError(response: Response): Promise<ApiError> {
 
   return new ApiError(
     'http',
-    `The assistant returned an error (HTTP ${response.status}).`,
+    `${wording.failed} (HTTP ${response.status}).`,
     response.status,
   )
 }
@@ -253,4 +266,26 @@ export async function sendChat(question: string, signal?: AbortSignal): Promise<
   }
 
   return parseChatResponse(await readJson(response))
+}
+
+/** GET a JSON resource; throws ApiError on network, HTTP or parse failure. */
+export async function getJson(path: string, signal?: AbortSignal): Promise<unknown> {
+  const response = await request(path, { method: 'GET' }, READ_TIMEOUT_MS, signal)
+
+  if (!response.ok) {
+    throw await httpError(response, READ_WORDING)
+  }
+
+  return readJson(response)
+}
+
+/** POST without a body (e.g. to trigger an action); returns the JSON response. */
+export async function postJson(path: string, signal?: AbortSignal): Promise<unknown> {
+  const response = await request(path, { method: 'POST' }, READ_TIMEOUT_MS, signal)
+
+  if (!response.ok) {
+    throw await httpError(response, READ_WORDING)
+  }
+
+  return readJson(response)
 }

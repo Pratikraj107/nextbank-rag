@@ -1,30 +1,32 @@
 import type { LucideIcon } from 'lucide-react'
 import { Activity, FolderSearch, Landmark, MessageSquareText, ShieldCheck, X } from 'lucide-react'
 
-import type { ConnectionState } from '../types'
+import type { ConnectionState, View } from '../types'
 import { ConnectionStatus } from './ConnectionStatus'
 
 interface NavItem {
   label: string
   icon: LucideIcon
-  active?: boolean
-  placeholder?: boolean
+  /** Views that exist; items without one are placeholders. */
+  view?: View
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: 'Assistant', icon: MessageSquareText, active: true },
-  { label: 'Document Explorer', icon: FolderSearch, placeholder: true },
-  { label: 'Activity', icon: Activity, placeholder: true },
+  { label: 'Assistant', icon: MessageSquareText, view: 'assistant' },
+  { label: 'Document Explorer', icon: FolderSearch, view: 'documents' },
+  { label: 'Activity', icon: Activity, view: 'activity' },
 ]
 
 interface SidebarProps {
   connection: ConnectionState
   onRetryConnection: () => void
+  activeView: View
+  onNavigate: (view: View) => void
   /** Present when the sidebar is rendered inside a drawer. */
   onClose?: () => void
 }
 
-export function Sidebar({ connection, onRetryConnection, onClose }: SidebarProps) {
+export function Sidebar({ connection, onRetryConnection, activeView, onNavigate, onClose }: SidebarProps) {
   return (
     <div className="flex h-full w-full flex-col bg-white">
       <div className="flex items-center justify-between gap-3 px-5 pt-5 pb-6">
@@ -54,9 +56,9 @@ export function Sidebar({ connection, onRetryConnection, onClose }: SidebarProps
           Workspace
         </p>
         <ul className="space-y-0.5">
-          {NAV_ITEMS.map(({ label, icon: Icon, active, placeholder }) => (
+          {NAV_ITEMS.map(({ label, icon: Icon, view }) => (
             <li key={label}>
-              {placeholder ? (
+              {!view ? (
                 <span
                   aria-disabled="true"
                   title="Not available yet"
@@ -69,17 +71,17 @@ export function Sidebar({ connection, onRetryConnection, onClose }: SidebarProps
                   </span>
                 </span>
               ) : (
-                <a
-                  href="#"
-                  aria-current={active ? 'page' : undefined}
-                  onClick={(event) => event.preventDefault()}
-                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                    active ? 'bg-accent-soft text-accent' : 'text-ink-soft hover:bg-canvas'
+                <button
+                  type="button"
+                  aria-current={activeView === view ? 'page' : undefined}
+                  onClick={() => onNavigate(view)}
+                  className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors ${
+                    activeView === view ? 'bg-accent-soft text-accent' : 'text-ink-soft hover:bg-canvas'
                   }`}
                 >
                   <Icon className="h-4 w-4" aria-hidden />
                   {label}
-                </a>
+                </button>
               )}
             </li>
           ))}

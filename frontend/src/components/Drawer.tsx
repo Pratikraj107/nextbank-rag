@@ -6,10 +6,19 @@ interface DrawerProps {
   side: 'left' | 'right'
   label: string
   children: ReactNode
+  /** Tailwind width classes for the panel. */
+  widthClassName?: string
 }
 
 /** Off-canvas panel used for the sidebar and evidence panel on small screens. */
-export function Drawer({ open, onClose, side, label, children }: DrawerProps) {
+export function Drawer({
+  open,
+  onClose,
+  side,
+  label,
+  children,
+  widthClassName = 'w-[85vw] max-w-[340px]',
+}: DrawerProps) {
   const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -40,7 +49,7 @@ export function Drawer({ open, onClose, side, label, children }: DrawerProps) {
         aria-modal="true"
         aria-label={label}
         tabIndex={-1}
-        className={`absolute inset-y-0 flex w-[85vw] max-w-[340px] flex-col bg-white shadow-xl outline-none ${
+        className={`absolute inset-y-0 flex ${widthClassName} flex-col bg-white shadow-xl outline-none ${
           side === 'left' ? 'left-0' : 'right-0'
         }`}
       >

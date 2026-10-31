@@ -10,6 +10,11 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 from src.agents.rag_agent import ask_agent, run_evidence_validation
+from src.api.documents import get_document_library
+from src.api.documents import router as documents_router
+from src.api.uploads import get_ingestion_service
+from src.api.uploads import router as uploads_router
+from src.documents.library import DocumentLibraryError
 from src.embeddings.semantic_search import warm_up
 from src.observability.timing import (
     end_request_timer,
@@ -39,6 +44,20 @@ async def lifespan(_: FastAPI):
         '{"event": "startup_warm_up", "duration_ms": %.1f}',
         (time.perf_counter() - started) * 1000,
     )
+
+    # Load the document library early so data problems show up in the
+    # logs at startup. Chat keeps working if it fails; the document
+    # endpoints then return 503 with the reason.
+    try:
+        documents = get_document_library().all()
+        timing_logger.info('{"event": "document_library_loaded", "documents": %d}', len(documents))
+    except DocumentLibraryError as exc:
+        timing_logger.warning('{"event": "document_library_unavailable", "reason": "%s"}', exc)
+
+    # Load upload job records: jobs interrupted by a restart are marked
+    # failed, and "ready" jobs whose document left the index are flagged.
+    get_ingestion_service().reconcile()
+
     yield
 
 
@@ -51,6 +70,10 @@ app = FastAPI(
 
 # Local frontend development only.
 # Restrict this to your deployed frontend origin before production.
+# Uploads first: /api/documents/upload-options must not be read as a document ID.
+app.include_router(uploads_router)
+app.include_router(documents_router)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[

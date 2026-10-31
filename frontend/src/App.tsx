@@ -1,6 +1,8 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
+import { ActivityCenter } from './components/activity/ActivityCenter'
 import { ChatView } from './components/ChatView'
+import { DocumentExplorer } from './components/documents/DocumentExplorer'
 import { Drawer } from './components/Drawer'
 import { Sidebar } from './components/Sidebar'
 import { SourcePanel } from './components/SourcePanel'
@@ -8,7 +10,42 @@ import { TopBar } from './components/TopBar'
 import { useChat } from './hooks/useChat'
 import { useHealth } from './hooks/useHealth'
 import { useMediaQuery } from './hooks/useMediaQuery'
-import type { AssistantMessage } from './types'
+import type { AssistantMessage, ComposerDraft, View } from './types'
+
+interface Location {
+  view: View
+  documentId: string | null
+  jobId: string | null
+}
+
+// The current view (and selected document or job) live in the URL hash, so a
+// refresh or a shared link reopens the same place:
+//   #/documents?doc=doc_…    #/activity?job=<32 hex characters>
+function readLocation(): Location {
+  const hash = window.location.hash
+  const params = new URLSearchParams(hash.split('?')[1] ?? '')
+  if (hash.startsWith('#/documents')) {
+    const documentId = params.get('doc')
+    return { view: 'documents', documentId: documentId && /^doc_[0-9a-f]{16}$/.test(documentId) ? documentId : null, jobId: null }
+  }
+  if (hash.startsWith('#/activity')) {
+    const jobId = params.get('job')
+    return { view: 'activity', documentId: null, jobId: jobId && /^[0-9a-f]{32}$/.test(jobId) ? jobId : null }
+  }
+  return { view: 'assistant', documentId: null, jobId: null }
+}
+
+function writeLocation(location: Location, replace: boolean) {
+  const hash =
+    location.view === 'documents'
+      ? `#/documents${location.documentId ? `?doc=${location.documentId}` : ''}`
+      : location.view === 'activity'
+        ? `#/activity${location.jobId ? `?job=${location.jobId}` : ''}`
+        : '#/'
+  if (hash === window.location.hash) return
+  if (replace) window.history.replaceState(null, '', hash)
+  else window.history.pushState(null, '', hash)
+}
 
 interface EvidenceSelection {
   messageId: string
@@ -22,6 +59,8 @@ export default function App() {
   const chat = useChat({ onConnectionProblem: health.recheck })
   const showsEvidenceColumn = useMediaQuery('(min-width: 1280px)')
 
+  const [location, setLocation] = useState<Location>(readLocation)
+  const [draft, setDraft] = useState<ComposerDraft | null>(null)
   const [navigationOpen, setNavigationOpen] = useState(false)
   const [evidenceOpen, setEvidenceOpen] = useState(false)
   const [selection, setSelection] = useState<EvidenceSelection | null>(null)
@@ -65,6 +104,54 @@ export default function App() {
     setEvidenceOpen(false)
   }, [chat])
 
+  // Back/forward buttons.
+  useEffect(() => {
+    const onPopState = () => setLocation(readLocation())
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [])
+
+  const navigate = useCallback((view: View) => {
+    setNavigationOpen(false)
+    setLocation((current) => {
+      const next = {
+        view,
+        documentId: view === 'documents' ? current.documentId : null,
+        jobId: view === 'activity' ? current.jobId : null,
+      }
+      writeLocation(next, false)
+      return next
+    })
+  }, [])
+
+  const selectDocument = useCallback((documentId: string | null) => {
+    const next: Location = { view: 'documents', documentId, jobId: null }
+    writeLocation(next, true)
+    setLocation(next)
+  }, [])
+
+  const selectJob = useCallback((jobId: string | null) => {
+    const next: Location = { view: 'activity', documentId: null, jobId }
+    writeLocation(next, true)
+    setLocation(next)
+  }, [])
+
+  // From a job to its document: a new history entry, so Back returns to the job.
+  const openDocumentFromJob = useCallback((documentId: string) => {
+    const next: Location = { view: 'documents', documentId, jobId: null }
+    writeLocation(next, false)
+    setLocation(next)
+  }, [])
+
+  // "Ask about this document": switch to the chat with an editable question.
+  const askAboutDocument = useCallback(
+    (question: string) => {
+      setDraft((previous) => ({ text: question, nonce: (previous?.nonce ?? 0) + 1 }))
+      navigate('assistant')
+    },
+    [navigate],
+  )
+
   const closeNavigation = useCallback(() => setNavigationOpen(false), [])
   const closeEvidence = useCallback(() => setEvidenceOpen(false), [])
 
@@ -78,9 +165,34 @@ export default function App() {
   return (
     <div className="flex h-full overflow-hidden">
       <aside className="hidden w-[256px] shrink-0 border-r border-line lg:block" aria-label="Sidebar">
-        <Sidebar connection={health.status} onRetryConnection={health.recheck} />
+        <Sidebar
+          connection={health.status}
+          onRetryConnection={health.recheck}
+          activeView={location.view}
+          onNavigate={navigate}
+        />
       </aside>
 
+      {location.view === 'activity' ? (
+        <main className="flex min-w-0 flex-1">
+          <ActivityCenter
+            selectedJobId={location.jobId}
+            onSelectJob={selectJob}
+            onOpenDocument={openDocumentFromJob}
+            onGoToDocuments={() => navigate('documents')}
+            onOpenNavigation={() => setNavigationOpen(true)}
+          />
+        </main>
+      ) : location.view === 'documents' ? (
+        <main className="flex min-w-0 flex-1">
+          <DocumentExplorer
+            selectedId={location.documentId}
+            onSelect={selectDocument}
+            onAsk={askAboutDocument}
+            onOpenNavigation={() => setNavigationOpen(true)}
+          />
+        </main>
+      ) : (
       <main className="flex min-w-0 flex-1 flex-col">
         <TopBar
           connection={health.status}
@@ -98,21 +210,29 @@ export default function App() {
           onRetry={chat.retry}
           onCitation={selectEvidence}
           onShowSources={(messageId) => selectEvidence(messageId, null)}
+          draft={draft}
         />
       </main>
+      )}
 
-      {showsEvidenceColumn && (
+      {location.view === 'assistant' && showsEvidenceColumn && (
         <aside className="w-[328px] shrink-0 border-l border-line bg-white" aria-label="Evidence panel">
           <SourcePanel {...sourcePanelProps} />
         </aside>
       )}
 
       <Drawer open={navigationOpen} onClose={closeNavigation} side="left" label="Navigation">
-        <Sidebar connection={health.status} onRetryConnection={health.recheck} onClose={closeNavigation} />
+        <Sidebar
+          connection={health.status}
+          onRetryConnection={health.recheck}
+          activeView={location.view}
+          onNavigate={navigate}
+          onClose={closeNavigation}
+        />
       </Drawer>
 
       <Drawer
-        open={evidenceOpen && !showsEvidenceColumn}
+        open={location.view === 'assistant' && evidenceOpen && !showsEvidenceColumn}
         onClose={closeEvidence}
         side="right"
         label="Evidence"

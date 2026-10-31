@@ -1,24 +1,7 @@
-import { FileSpreadsheet, FileText, Globe, Mail } from 'lucide-react'
 import { forwardRef } from 'react'
 
 import { humanize, type SourceGroup } from '../lib/sources'
-
-function FileIcon({ filename }: { filename: string }) {
-  const extension = filename.split('.').at(-1)?.toLowerCase()
-  const className = 'h-4 w-4'
-
-  switch (extension) {
-    case 'csv':
-      return <FileSpreadsheet className={className} aria-hidden />
-    case 'eml':
-      return <Mail className={className} aria-hidden />
-    case 'html':
-    case 'htm':
-      return <Globe className={className} aria-hidden />
-    default:
-      return <FileText className={className} aria-hidden />
-  }
-}
+import { FileTypeIcon } from './FileTypeIcon'
 
 function Field({ label, value }: { label: string; value: string }) {
   return (
@@ -58,7 +41,7 @@ export const SourceCard = forwardRef<HTMLLIElement, SourceCardProps>(function So
     >
       <div className="flex items-start gap-3">
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-line bg-canvas text-ink-soft">
-          <FileIcon filename={group.filename} />
+          <FileTypeIcon filename={group.filename} />
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-sm font-semibold text-ink [overflow-wrap:anywhere]" title={group.source}>
