@@ -1,0 +1,2251 @@
+{
+  "metadata": {
+    "run_id": "20261025T110425Z",
+    "started_at": "2026-10-25T11:04:25+00:00",
+    "agent_access": "running API at http://127.0.0.1:8000 (real agent over HTTP)",
+    "api_url": "http://127.0.0.1:8000",
+    "git_commit": "1521b18",
+    "git_dirty": true,
+    "dataset": "data/evaluation/nexabank_eval.jsonl",
+    "dataset_sha256": "67c574e2e8803a3df38580d65ddca3abd6d4d2fd069e6c273b2a079e85ccb98a",
+    "filters": {},
+    "warmup_requests": 1,
+    "warmup_latency_ms": [
+      10075.7
+    ],
+    "latency_note": "warm requests to an already-running API (includes HTTP overhead); 1 warm-up request(s) excluded from all metrics. Process cold start is not measured."
+  },
+  "summary": {
+    "cases": 25,
+    "errors": 0,
+    "overall_pass": {
+      "numerator": 22,
+      "denominator": 25,
+      "rate": 0.88
+    },
+    "behavior_pass": {
+      "numerator": 22,
+      "denominator": 25,
+      "rate": 0.88
+    },
+    "by_category": {
+      "abstention": {
+        "passed": {
+          "numerator": 3,
+          "denominator": 3,
+          "rate": 1.0
+        },
+        "latency": {
+          "n": 3,
+          "median_ms": 7568.4,
+          "mean_ms": 9160.2,
+          "min_ms": 5432.6,
+          "max_ms": 14479.6,
+          "p95_ms": 13788.5,
+          "p95_reliable": false
+        },
+        "attempts_mean": 1.33,
+        "attempts_max": 2
+      },
+      "citation_mapping": {
+        "passed": {
+          "numerator": 2,
+          "denominator": 2,
+          "rate": 1.0
+        },
+        "latency": {
+          "n": 2,
+          "median_ms": 7072.1,
+          "mean_ms": 7072.1,
+          "min_ms": 6981.6,
+          "max_ms": 7162.6,
+          "p95_ms": 7153.6,
+          "p95_reliable": false
+        },
+        "attempts_mean": 1.0,
+        "attempts_max": 1
+      },
+      "dates_tenure": {
+        "passed": {
+          "numerator": 2,
+          "denominator": 3,
+          "rate": 0.6667
+        },
+        "latency": {
+          "n": 3,
+          "median_ms": 9572.7,
+          "mean_ms": 9551.0,
+          "min_ms": 8432.0,
+          "max_ms": 10648.3,
+          "p95_ms": 10540.7,
+          "p95_reliable": false
+        },
+        "attempts_mean": 1.0,
+        "attempts_max": 1
+      },
+      "identifier_conflict": {
+        "passed": {
+          "numerator": 3,
+          "denominator": 3,
+          "rate": 1.0
+        },
+        "latency": {
+          "n": 3,
+          "median_ms": 4.4,
+          "mean_ms": 4.8,
+          "min_ms": 3.9,
+          "max_ms": 6.0,
+          "p95_ms": 5.8,
+          "p95_reliable": false
+        },
+        "attempts_mean": 0.0,
+        "attempts_max": 0
+      },
+      "insufficient_evidence": {
+        "passed": {
+          "numerator": 0,
+          "denominator": 1,
+          "rate": 0.0
+        },
+        "latency": {
+          "n": 1,
+          "median_ms": 6322.2,
+          "mean_ms": 6322.2,
+          "min_ms": 6322.2,
+          "max_ms": 6322.2,
+          "p95_ms": 6322.2,
+          "p95_reliable": false
+        },
+        "attempts_mean": 1.0,
+        "attempts_max": 1
+      },
+      "numeric_precision": {
+        "passed": {
+          "numerator": 5,
+          "denominator": 5,
+          "rate": 1.0
+        },
+        "latency": {
+          "n": 5,
+          "median_ms": 5818.9,
+          "mean_ms": 6041.5,
+          "min_ms": 5449.4,
+          "max_ms": 6900.0,
+          "p95_ms": 6830.3,
+          "p95_reliable": false
+        },
+        "attempts_mean": 1.0,
+        "attempts_max": 1
+      },
+      "supported_fact": {
+        "passed": {
+          "numerator": 5,
+          "denominator": 5,
+          "rate": 1.0
+        },
+        "latency": {
+          "n": 5,
+          "median_ms": 6938.3,
+          "mean_ms": 6807.3,
+          "min_ms": 4503.7,
+          "max_ms": 9504.5,
+          "p95_ms": 9076.3,
+          "p95_reliable": false
+        },
+        "attempts_mean": 1.0,
+        "attempts_max": 1
+      },
+      "unsupported_status": {
+        "passed": {
+          "numerator": 0,
+          "denominator": 1,
+          "rate": 0.0
+        },
+        "latency": {
+          "n": 1,
+          "median_ms": 7876.7,
+          "mean_ms": 7876.7,
+          "min_ms": 7876.7,
+          "max_ms": 7876.7,
+          "p95_ms": 7876.7,
+          "p95_reliable": false
+        },
+        "attempts_mean": 1.0,
+        "attempts_max": 1
+      },
+      "wrong_employer": {
+        "passed": {
+          "numerator": 1,
+          "denominator": 1,
+          "rate": 1.0
+        },
+        "latency": {
+          "n": 1,
+          "median_ms": 6272.2,
+          "mean_ms": 6272.2,
+          "min_ms": 6272.2,
+          "max_ms": 6272.2,
+          "p95_ms": 6272.2,
+          "p95_reliable": false
+        },
+        "attempts_mean": 1.0,
+        "attempts_max": 1
+      },
+      "wrong_person": {
+        "passed": {
+          "numerator": 1,
+          "denominator": 1,
+          "rate": 1.0
+        },
+        "latency": {
+          "n": 1,
+          "median_ms": 5727.0,
+          "mean_ms": 5727.0,
+          "min_ms": 5727.0,
+          "max_ms": 5727.0,
+          "p95_ms": 5727.0,
+          "p95_reliable": false
+        },
+        "attempts_mean": 1.0,
+        "attempts_max": 1
+      }
+    },
+    "facts": {
+      "exact_fact_accuracy": {
+        "numerator": 18,
+        "denominator": 18,
+        "rate": 1.0
+      },
+      "answer_cases_all_facts_matched": {
+        "numerator": 18,
+        "denominator": 18,
+        "rate": 1.0
+      },
+      "fact_in_cited_source": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null
+      }
+    },
+    "abstention": {
+      "correct_abstention": {
+        "numerator": 3,
+        "denominator": 4,
+        "rate": 0.75
+      },
+      "abstention_precision": {
+        "numerator": 3,
+        "denominator": 3,
+        "rate": 1.0
+      },
+      "incorrect_answers_to_abstain_cases": {
+        "numerator": 1,
+        "denominator": 4,
+        "rate": 0.25
+      },
+      "over_abstention": {
+        "numerator": 0,
+        "denominator": 18,
+        "rate": 0.0
+      }
+    },
+    "conflicts": {
+      "rejection_rate": {
+        "numerator": 3,
+        "denominator": 3,
+        "rate": 1.0
+      },
+      "stopped_before_generation": {
+        "numerator": 3,
+        "denominator": 3,
+        "rate": 1.0
+      }
+    },
+    "citations": {
+      "label_mapping_valid": {
+        "numerator": 22,
+        "denominator": 22,
+        "rate": 1.0
+      },
+      "required_citation_present": {
+        "numerator": 18,
+        "denominator": 18,
+        "rate": 1.0
+      },
+      "source_metadata_complete": {
+        "numerator": 74,
+        "denominator": 74,
+        "rate": 1.0
+      },
+      "expected_source_type": {
+        "numerator": 17,
+        "denominator": 17,
+        "rate": 1.0
+      },
+      "expected_customer_loan": {
+        "numerator": 19,
+        "denominator": 19,
+        "rate": 1.0
+      }
+    },
+    "validation": {
+      "basic_passed": {
+        "numerator": 22,
+        "denominator": 25,
+        "rate": 0.88
+      },
+      "evidence_passed": {
+        "numerator": 22,
+        "denominator": 25,
+        "rate": 0.88
+      },
+      "outcomes": {
+        "identifier_conflict": 3,
+        "verified_abstention": 3,
+        "verified_answer": 19
+      }
+    },
+    "latency": {
+      "n": 25,
+      "median_ms": 6551.5,
+      "mean_ms": 6429.4,
+      "min_ms": 3.9,
+      "max_ms": 14479.6,
+      "p95_ms": 10433.2,
+      "p95_reliable": true
+    },
+    "latency_llm_requests": {
+      "n": 22,
+      "median_ms": 6919.1,
+      "mean_ms": 7305.4,
+      "min_ms": 4503.7,
+      "max_ms": 14479.6,
+      "p95_ms": 10594.5,
+      "p95_reliable": true
+    },
+    "failed_cases": [
+      {
+        "id": "tenure_lotte_ten_years_not_overstated",
+        "reasons": [
+          "forbidden claims present: ['claims 10 years of employment']"
+        ]
+      },
+      {
+        "id": "status_loan_2101_not_approved",
+        "reasons": [
+          "forbidden claims present: ['states the loan is approved']"
+        ]
+      },
+      {
+        "id": "insufficient_loan_2101_monthly_instalment",
+        "reasons": [
+          "answered a question the documents cannot support",
+          "forbidden claims present: [\"EUR 310 (the existing loan's payment, not this loan's instalment)\"]"
+        ]
+      }
+    ],
+    "manual_review": [
+      {
+        "id": "tenure_lotte_ten_years_not_overstated",
+        "reasons": [
+          "answer contains both the expected facts and declining language"
+        ]
+      },
+      {
+        "id": "status_loan_2101_not_approved",
+        "reasons": [
+          "answer contains both the expected facts and declining language"
+        ]
+      }
+    ]
+  },
+  "results": [
+    {
+      "id": "fact_lotte_annual_gross_salary",
+      "category": "supported_fact",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 6938.3,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "EUR 72,000.00",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "fact_thomas_monthly_gross_salary",
+      "category": "supported_fact",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 9504.5,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "EUR 6,750.00",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "fact_lotte_monthly_net_salary",
+      "category": "supported_fact",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 7363.5,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "EUR 4,300.00",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "fact_thomas_monthly_net_salary",
+      "category": "supported_fact",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 5726.4,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "EUR 4,700.00",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "fact_nina_annual_gross_salary",
+      "category": "supported_fact",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 4503.7,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "EUR 61,000.00",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2103/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "customer_id": "NB-CUST-3003",
+          "loan_id": "NB-LOAN-2103",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2103/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "customer_id": "NB-CUST-3003",
+          "loan_id": "NB-LOAN-2103",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "amount_nina_monthly_gross_decimal",
+      "category": "numeric_precision",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 5449.4,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "EUR 5,083.33",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2103/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3003",
+          "loan_id": "NB-LOAN-2103",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2103/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3003",
+          "loan_id": "NB-LOAN-2103",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "amount_lotte_outstanding_balance",
+      "category": "numeric_precision",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 5818.9,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "EUR 4,820.00",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/06_existing_loan_statement.pdf",
+          "document_type": "existing_loan_statement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/06_existing_loan_statement.pdf",
+          "document_type": "existing_loan_statement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "amount_thomas_outstanding_balance",
+      "category": "numeric_precision",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 5487.7,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "EUR 5,280.00",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/06_existing_loan_statement.pdf",
+          "document_type": "existing_loan_statement",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/06_existing_loan_statement.pdf",
+          "document_type": "existing_loan_statement",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "amount_loan_2101_requested",
+      "category": "numeric_precision",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 6900.0,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "EUR 22,000.00",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "quantity_loan_2101_term",
+      "category": "numeric_precision",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 6551.5,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "48 months",
+          "type": "quantity",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [
+        {
+          "label": "60 months (NB-LOAN-2102's term)",
+          "type": "quantity",
+          "status": "missing"
+        }
+      ],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "date_lotte_employment_start",
+      "category": "dates_tenure",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 8432.0,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "03 May 2021",
+          "type": "date",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "tenure_lotte_ten_years_not_overstated",
+      "category": "dates_tenure",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": false,
+      "citation_passed": true,
+      "passed": false,
+      "latency_ms": 10648.3,
+      "error": null,
+      "failure_reasons": [
+        "forbidden claims present: ['claims 10 years of employment']"
+      ],
+      "manual_review_reasons": [
+        "answer contains both the expected facts and declining language"
+      ],
+      "facts": [
+        {
+          "label": "start date 03 May 2021",
+          "type": "date",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [
+        {
+          "label": "answer opens by confirming the claim",
+          "type": "pattern",
+          "status": "missing"
+        },
+        {
+          "label": "claims 10 years of employment",
+          "type": "pattern",
+          "status": "matched"
+        }
+      ],
+      "citations": {
+        "labels": [
+          "S2",
+          "S1",
+          "S3"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/04_employer_statement.pdf",
+          "document_type": "employer_statement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/enterprise_csv/customers.csv",
+          "document_type": "csv_record",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": null,
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/html/11_internal_lending_portal.html",
+          "document_type": "internal_lending_portal",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": "No. The employment agreement lists Lotte van Dijk's start date as 03 May 2021, which does not indicate she has worked for the employer for at least 10 years [S2]. The employer statement and payslip identify her and the employer but do not show a 10‑year tenure [S1, S3]. The available documents there"
+    },
+    {
+      "id": "date_lotte_date_of_birth",
+      "category": "dates_tenure",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 9572.7,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "14 June 1990",
+          "type": "date",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/05_identity_residence.pdf",
+          "document_type": "identity_document",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/04_employer_statement.pdf",
+          "document_type": "employer_statement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/enterprise_csv/customers.csv",
+          "document_type": "csv_record",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": null,
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "abstain_lotte_favorite_color",
+      "category": "abstention",
+      "expected_behavior": "abstain",
+      "actual_behavior": "abstain",
+      "behavior_passed": true,
+      "citation_passed": null,
+      "passed": true,
+      "latency_ms": 7568.4,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [],
+      "forbidden": [
+        {
+          "label": "names a colour",
+          "type": "pattern",
+          "status": "missing"
+        }
+      ],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": false,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": null,
+        "customer_loan_ok": null,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/05_identity_residence.pdf",
+          "document_type": "identity_document",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/04_employer_statement.pdf",
+          "document_type": "employer_statement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/emails/12_customer_email.eml",
+          "document_type": "customer_email",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/enterprise_csv/customers.csv",
+          "document_type": "csv_record",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": null,
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_abstention",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "abstain_lotte_spouse_name",
+      "category": "abstention",
+      "expected_behavior": "abstain",
+      "actual_behavior": "abstain",
+      "behavior_passed": true,
+      "citation_passed": null,
+      "passed": true,
+      "latency_ms": 5432.6,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": false,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": null,
+        "customer_loan_ok": null,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/05_identity_residence.pdf",
+          "document_type": "identity_document",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/04_employer_statement.pdf",
+          "document_type": "employer_statement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/enterprise_csv/customers.csv",
+          "document_type": "csv_record",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": null,
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_abstention",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "abstain_thomas_credit_score",
+      "category": "abstention",
+      "expected_behavior": "abstain",
+      "actual_behavior": "abstain",
+      "behavior_passed": true,
+      "citation_passed": null,
+      "passed": true,
+      "latency_ms": 14479.6,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [],
+      "forbidden": [
+        {
+          "label": "states a numeric credit score",
+          "type": "pattern",
+          "status": "missing"
+        }
+      ],
+      "citations": {
+        "labels": [
+          "S5",
+          "S1",
+          "S2",
+          "S3",
+          "S6",
+          "S7"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": false,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": null,
+        "customer_loan_ok": null,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/06_existing_loan_statement.pdf",
+          "document_type": "existing_loan_statement",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/08_loan_offer.pdf",
+          "document_type": "loan_offer",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/07_sepa_mandate.pdf",
+          "document_type": "sepa_mandate",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/05_identity_residence.pdf",
+          "document_type": "identity_document",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/02_bank_statement.pdf",
+          "document_type": "bank_statement",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/enterprise_csv/customers.csv",
+          "document_type": "csv_record",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": null,
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 2,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_abstention",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "conflict_thomas_with_loan_2101",
+      "category": "identifier_conflict",
+      "expected_behavior": "reject_conflict",
+      "actual_behavior": "reject_conflict",
+      "behavior_passed": true,
+      "citation_passed": null,
+      "passed": true,
+      "latency_ms": 6.0,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [],
+      "forbidden": [
+        {
+          "label": "answer opens by confirming the claim",
+          "type": "pattern",
+          "status": "missing"
+        }
+      ],
+      "citations": {
+        "labels": [],
+        "unmapped_labels": [],
+        "mapping_valid": null,
+        "required": false,
+        "present": false,
+        "metadata_complete": null,
+        "source_type_ok": null,
+        "customer_loan_ok": null,
+        "fact_in_cited_source": null
+      },
+      "sources": [],
+      "validation": {
+        "search_mode": "conflict",
+        "attempts": 0,
+        "basic_validation_passed": false,
+        "evidence_validation_passed": false,
+        "outcome": "identifier_conflict",
+        "stopped_before_generation": true,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "conflict_lotte_with_loan_2102",
+      "category": "identifier_conflict",
+      "expected_behavior": "reject_conflict",
+      "actual_behavior": "reject_conflict",
+      "behavior_passed": true,
+      "citation_passed": null,
+      "passed": true,
+      "latency_ms": 4.4,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [],
+      "forbidden": [
+        {
+          "label": "EUR 30,000 (NB-LOAN-2102's amount)",
+          "type": "amount",
+          "status": "missing"
+        }
+      ],
+      "citations": {
+        "labels": [],
+        "unmapped_labels": [],
+        "mapping_valid": null,
+        "required": false,
+        "present": false,
+        "metadata_complete": null,
+        "source_type_ok": null,
+        "customer_loan_ok": null,
+        "fact_in_cited_source": null
+      },
+      "sources": [],
+      "validation": {
+        "search_mode": "conflict",
+        "attempts": 0,
+        "basic_validation_passed": false,
+        "evidence_validation_passed": false,
+        "outcome": "identifier_conflict",
+        "stopped_before_generation": true,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "conflict_customer_id_3002_with_loan_2101",
+      "category": "identifier_conflict",
+      "expected_behavior": "reject_conflict",
+      "actual_behavior": "reject_conflict",
+      "behavior_passed": true,
+      "citation_passed": null,
+      "passed": true,
+      "latency_ms": 3.9,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [],
+      "forbidden": [
+        {
+          "label": "48 months",
+          "type": "quantity",
+          "status": "missing"
+        }
+      ],
+      "citations": {
+        "labels": [],
+        "unmapped_labels": [],
+        "mapping_valid": null,
+        "required": false,
+        "present": false,
+        "metadata_complete": null,
+        "source_type_ok": null,
+        "customer_loan_ok": null,
+        "fact_in_cited_source": null
+      },
+      "sources": [],
+      "validation": {
+        "search_mode": "conflict",
+        "attempts": 0,
+        "basic_validation_passed": false,
+        "evidence_validation_passed": false,
+        "outcome": "identifier_conflict",
+        "stopped_before_generation": true,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "wrong_person_thomas_salary_is_lottes",
+      "category": "wrong_person",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 5727.0,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "EUR 81,000.00",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [
+        {
+          "label": "answer opens by confirming the claim",
+          "type": "pattern",
+          "status": "missing"
+        }
+      ],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2102/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2102/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "wrong_employer_lotte_delta_infra",
+      "category": "wrong_employer",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 6272.2,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "Canal Analytics B.V.",
+          "type": "text",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [
+        {
+          "label": "answer opens by confirming the claim",
+          "type": "pattern",
+          "status": "missing"
+        }
+      ],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2",
+          "S3",
+          "S4"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": null,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/04_employer_statement.pdf",
+          "document_type": "employer_statement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/enterprise_csv/customers.csv",
+          "document_type": "csv_record",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": null,
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/06_existing_loan_statement.pdf",
+          "document_type": "existing_loan_statement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "status_loan_2101_not_approved",
+      "category": "unsupported_status",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": false,
+      "citation_passed": true,
+      "passed": false,
+      "latency_ms": 7876.7,
+      "error": null,
+      "failure_reasons": [
+        "forbidden claims present: ['states the loan is approved']"
+      ],
+      "manual_review_reasons": [
+        "answer contains both the expected facts and declining language"
+      ],
+      "facts": [
+        {
+          "label": "DOCUMENT REVIEW PENDING",
+          "type": "text",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [
+        {
+          "label": "answer opens by confirming the claim",
+          "type": "pattern",
+          "status": "missing"
+        },
+        {
+          "label": "states the loan is approved",
+          "type": "pattern",
+          "status": "matched"
+        }
+      ],
+      "citations": {
+        "labels": [
+          "S2",
+          "S1"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/docx/10_credit_analyst_notes.docx",
+          "document_type": "credit_assessment",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/docx/10_credit_analyst_notes.docx",
+          "document_type": "credit_assessment",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 2,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": "The credit assessment status for loan NB-LOAN-2101 is \"DOCUMENT REVIEW PENDING\" [S2]. The available documents do not show that the loan has been approved. There is no approval recorded in the provided evidence [S1,S2]."
+    },
+    {
+      "id": "citation_lotte_iban",
+      "category": "citation_mapping",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 7162.6,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "NL00NB00SYNTH3001",
+          "type": "identifier",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/02_bank_statement.pdf",
+          "document_type": "bank_statement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/emails/12_customer_email.eml",
+          "document_type": "customer_email",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/05_identity_residence.pdf",
+          "document_type": "identity_document",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/04_employer_statement.pdf",
+          "document_type": "employer_statement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/emails/12_customer_email.eml",
+          "document_type": "customer_email",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "citation_loan_2101_offer_principal",
+      "category": "citation_mapping",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 6981.6,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "EUR 22,000.00",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2",
+          "S3",
+          "S4"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/08_loan_offer.pdf",
+          "document_type": "loan_offer",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/docx/10_credit_analyst_notes.docx",
+          "document_type": "credit_assessment",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/enterprise_csv/loan_applications.csv",
+          "document_type": "csv_record",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/html/11_internal_lending_portal.html",
+          "document_type": "internal_lending_portal",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "insufficient_loan_2101_monthly_instalment",
+      "category": "insufficient_evidence",
+      "expected_behavior": "abstain",
+      "actual_behavior": "answer",
+      "behavior_passed": false,
+      "citation_passed": true,
+      "passed": false,
+      "latency_ms": 6322.2,
+      "error": null,
+      "failure_reasons": [
+        "answered a question the documents cannot support",
+        "forbidden claims present: [\"EUR 310 (the existing loan's payment, not this loan's instalment)\"]"
+      ],
+      "manual_review_reasons": [],
+      "facts": [],
+      "forbidden": [
+        {
+          "label": "EUR 310 (the existing loan's payment, not this loan's instalment)",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "citations": {
+        "labels": [
+          "S5"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": false,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": null,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/enterprise_csv/loan_applications.csv",
+          "document_type": "csv_record",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/docx/10_credit_analyst_notes.docx",
+          "document_type": "credit_assessment",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/08_loan_offer.pdf",
+          "document_type": "loan_offer",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/01_loan_application.pdf",
+          "document_type": "loan_application",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/06_existing_loan_statement.pdf",
+          "document_type": "existing_loan_statement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": "The monthly instalment is EUR 310, according to the existing loan statement (statement date 30-09-2026) [S5]."
+    }
+  ]
+}
