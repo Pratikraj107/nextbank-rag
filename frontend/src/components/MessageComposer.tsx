@@ -1,17 +1,31 @@
 import { ArrowUp, LoaderCircle } from 'lucide-react'
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react'
 
+import type { ComposerDraft } from '../types'
+
 const MAX_LENGTH = 2000 // Matches ChatRequest.question max_length in the API.
 const MAX_HEIGHT_PX = 200
 
 interface MessageComposerProps {
   isLoading: boolean
   onSend: (question: string) => boolean
+  /** Pre-filled text (e.g. from the Document Explorer); never sent automatically. */
+  draft?: ComposerDraft | null
 }
 
-export function MessageComposer({ isLoading, onSend }: MessageComposerProps) {
-  const [value, setValue] = useState('')
+export function MessageComposer({ isLoading, onSend, draft }: MessageComposerProps) {
+  const [value, setValue] = useState(draft?.text ?? '')
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  // A draft remounts the composer (see ChatView); focus it with the
+  // cursor at the end so the question can be edited before sending.
+  useEffect(() => {
+    const textarea = textareaRef.current
+    if (!draft || !textarea) return
+    textarea.focus()
+    textarea.setSelectionRange(textarea.value.length, textarea.value.length)
+  }, [draft])
+
   const canSend = value.trim().length > 0 && !isLoading
 
   // Grow with the content up to a maximum height.

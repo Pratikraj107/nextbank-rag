@@ -1,0 +1,157 @@
+{
+  "label": "after-cold",
+  "by_case": {
+    "salary_lotte": {
+      "agent_total": {
+        "n": 1,
+        "median": 7827.4,
+        "p95": 7827.4
+      },
+      "attempt_1.answer_generation": {
+        "n": 1,
+        "median": 2917.3,
+        "p95": 2917.3
+      },
+      "attempt_1.attempt_answer_total": {
+        "n": 1,
+        "median": 2932.0,
+        "p95": 2932.0
+      },
+      "attempt_1.basic_validation": {
+        "n": 1,
+        "median": 0.2,
+        "p95": 0.2
+      },
+      "attempt_1.context_assembly": {
+        "n": 1,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "attempt_1.evidence_validation": {
+        "n": 1,
+        "median": 4890.5,
+        "p95": 4890.5
+      },
+      "attempt_1.query_embedding": {
+        "n": 1,
+        "median": 12.1,
+        "p95": 12.1
+      },
+      "attempt_1.vector_search": {
+        "n": 1,
+        "median": 2.4,
+        "p95": 2.4
+      },
+      "client_round_trip": {
+        "n": 1,
+        "median": 7830.6,
+        "p95": 7830.6
+      },
+      "query_analysis": {
+        "n": 1,
+        "median": 0.4,
+        "p95": 0.4
+      },
+      "route_query": {
+        "n": 1,
+        "median": 0.6,
+        "p95": 0.6
+      },
+      "total": {
+        "n": 1,
+        "median": 7827.6,
+        "p95": 7827.6
+      }
+    }
+  },
+  "llm_cases_overall": {
+    "agent_total": {
+      "n": 1,
+      "median": 7827.4,
+      "p95": 7827.4
+    },
+    "attempt_1.answer_generation": {
+      "n": 1,
+      "median": 2917.3,
+      "p95": 2917.3
+    },
+    "attempt_1.attempt_answer_total": {
+      "n": 1,
+      "median": 2932.0,
+      "p95": 2932.0
+    },
+    "attempt_1.basic_validation": {
+      "n": 1,
+      "median": 0.2,
+      "p95": 0.2
+    },
+    "attempt_1.context_assembly": {
+      "n": 1,
+      "median": 0.0,
+      "p95": 0.0
+    },
+    "attempt_1.evidence_validation": {
+      "n": 1,
+      "median": 4890.5,
+      "p95": 4890.5
+    },
+    "attempt_1.query_embedding": {
+      "n": 1,
+      "median": 12.1,
+      "p95": 12.1
+    },
+    "attempt_1.vector_search": {
+      "n": 1,
+      "median": 2.4,
+      "p95": 2.4
+    },
+    "client_round_trip": {
+      "n": 1,
+      "median": 7830.6,
+      "p95": 7830.6
+    },
+    "query_analysis": {
+      "n": 1,
+      "median": 0.4,
+      "p95": 0.4
+    },
+    "route_query": {
+      "n": 1,
+      "median": 0.6,
+      "p95": 0.6
+    },
+    "total": {
+      "n": 1,
+      "median": 7827.6,
+      "p95": 7827.6
+    }
+  },
+  "results": [
+    {
+      "case": "salary_lotte",
+      "run": 0,
+      "cold": true,
+      "startup_to_health_ms": 5999.9,
+      "client_ms": 7830.6,
+      "timings_ms": {
+        "query_analysis": 0.4,
+        "route_query": 0.6,
+        "attempt_1.query_embedding": 12.1,
+        "attempt_1.vector_search": 2.4,
+        "attempt_1.context_assembly": 0.0,
+        "attempt_1.answer_generation": 2917.3,
+        "attempt_1.attempt_answer_total": 2932.0,
+        "attempt_1.basic_validation": 0.2,
+        "attempt_1.evidence_validation": 4890.5,
+        "agent_total": 7827.4,
+        "total": 7827.6
+      },
+      "attempts": 1,
+      "search_mode": "semantic",
+      "evidence_validation_passed": true,
+      "passed": true,
+      "rule": "mentions EUR 72,000 with valid citations",
+      "answer": "Lotte van Dijk’s annual gross salary is EUR 72,000. [S1][S2]"
+    }
+  ]
+}

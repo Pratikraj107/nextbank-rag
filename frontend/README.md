@@ -77,7 +77,15 @@ src/
                       SourceCard, ValidationStatus, ConnectionStatus, Drawer
 ```
 
+## Document Explorer
+
+`src/components/documents/` holds the Document Explorer (sidebar → Document Explorer, or
+`/#/documents`). It uses `src/lib/documents.ts` for the read-only `/api/documents` endpoints
+and `src/hooks/useDocuments.ts` for loading, with superseded requests aborted and late
+responses ignored. Filters and table columns use container queries, so they adapt to the
+space next to the detail panel. Endpoint and ID details are in the root `README.md`.
+
 ## Placeholders
 
-"Document Explorer" and "Activity" in the sidebar are disabled placeholders
-marked "Soon". The backend has no endpoints for them yet.
+"Activity" in the sidebar is a disabled placeholder marked "Soon". The backend has
+no endpoint for it yet.

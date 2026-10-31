@@ -1,0 +1,363 @@
+{
+  "metadata": {
+    "run_id": "20261025T111641Z",
+    "started_at": "2026-10-25T11:16:41+00:00",
+    "agent_access": "running API at http://127.0.0.1:8000 (real agent over HTTP)",
+    "api_url": "http://127.0.0.1:8000",
+    "git_commit": "1521b18",
+    "git_dirty": true,
+    "dataset": "data/evaluation/nexabank_eval.jsonl",
+    "dataset_sha256": "f80b13e344316adad82e3ef581a1018093c4f40902656f6c84a6317c614d939e",
+    "filters": {
+      "limit": 3
+    },
+    "warmup_requests": 1,
+    "warmup_latency_ms": [
+      6213.7
+    ],
+    "latency_note": "warm requests to an already-running API (includes HTTP overhead); 1 warm-up request(s) excluded from all metrics. Process cold start is not measured."
+  },
+  "summary": {
+    "cases": 3,
+    "errors": 0,
+    "overall_pass": {
+      "numerator": 3,
+      "denominator": 3,
+      "rate": 1.0
+    },
+    "behavior_pass": {
+      "numerator": 3,
+      "denominator": 3,
+      "rate": 1.0
+    },
+    "by_category": {
+      "supported_fact": {
+        "passed": {
+          "numerator": 3,
+          "denominator": 3,
+          "rate": 1.0
+        },
+        "latency": {
+          "n": 3,
+          "median_ms": 6315.6,
+          "mean_ms": 6927.7,
+          "min_ms": 5733.4,
+          "max_ms": 8734.1,
+          "p95_ms": 8492.2,
+          "p95_reliable": false
+        },
+        "attempts_mean": 1.0,
+        "attempts_max": 1
+      }
+    },
+    "facts": {
+      "exact_fact_accuracy": {
+        "numerator": 3,
+        "denominator": 3,
+        "rate": 1.0
+      },
+      "answer_cases_all_facts_matched": {
+        "numerator": 3,
+        "denominator": 3,
+        "rate": 1.0
+      },
+      "fact_in_cited_source": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null
+      }
+    },
+    "abstention": {
+      "correct_abstention": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null
+      },
+      "abstention_precision": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null
+      },
+      "incorrect_answers_to_abstain_cases": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null
+      },
+      "over_abstention": {
+        "numerator": 0,
+        "denominator": 3,
+        "rate": 0.0
+      }
+    },
+    "conflicts": {
+      "rejection_rate": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null
+      },
+      "stopped_before_generation": {
+        "numerator": 0,
+        "denominator": 0,
+        "rate": null
+      }
+    },
+    "citations": {
+      "label_mapping_valid": {
+        "numerator": 3,
+        "denominator": 3,
+        "rate": 1.0
+      },
+      "required_citation_present": {
+        "numerator": 3,
+        "denominator": 3,
+        "rate": 1.0
+      },
+      "source_metadata_complete": {
+        "numerator": 6,
+        "denominator": 6,
+        "rate": 1.0
+      },
+      "expected_source_type": {
+        "numerator": 3,
+        "denominator": 3,
+        "rate": 1.0
+      },
+      "expected_customer_loan": {
+        "numerator": 3,
+        "denominator": 3,
+        "rate": 1.0
+      }
+    },
+    "validation": {
+      "basic_passed": {
+        "numerator": 3,
+        "denominator": 3,
+        "rate": 1.0
+      },
+      "evidence_passed": {
+        "numerator": 3,
+        "denominator": 3,
+        "rate": 1.0
+      },
+      "outcomes": {
+        "verified_answer": 3
+      }
+    },
+    "latency": {
+      "n": 3,
+      "median_ms": 6315.6,
+      "mean_ms": 6927.7,
+      "min_ms": 5733.4,
+      "max_ms": 8734.1,
+      "p95_ms": 8492.2,
+      "p95_reliable": false
+    },
+    "latency_llm_requests": {
+      "n": 3,
+      "median_ms": 6315.6,
+      "mean_ms": 6927.7,
+      "min_ms": 5733.4,
+      "max_ms": 8734.1,
+      "p95_ms": 8492.2,
+      "p95_reliable": false
+    },
+    "failed_cases": [],
+    "manual_review": []
+  },
+  "results": [
+    {
+      "id": "fact_lotte_annual_gross_salary",
+      "category": "supported_fact",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 8734.1,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "EUR 72,000.00",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/docx/09_employment_agreement.docx",
+          "document_type": "employment_agreement",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "fact_thomas_monthly_gross_salary",
+      "category": "supported_fact",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 6315.6,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "EUR 6,750.00",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2102/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3002",
+          "loan_id": "NB-LOAN-2102",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    },
+    {
+      "id": "fact_lotte_monthly_net_salary",
+      "category": "supported_fact",
+      "expected_behavior": "answer",
+      "actual_behavior": "answer",
+      "behavior_passed": true,
+      "citation_passed": true,
+      "passed": true,
+      "latency_ms": 5733.4,
+      "error": null,
+      "failure_reasons": [],
+      "manual_review_reasons": [],
+      "facts": [
+        {
+          "label": "EUR 4,300.00",
+          "type": "amount",
+          "status": "matched"
+        }
+      ],
+      "forbidden": [],
+      "citations": {
+        "labels": [
+          "S1",
+          "S2"
+        ],
+        "unmapped_labels": [],
+        "mapping_valid": true,
+        "required": true,
+        "present": true,
+        "metadata_complete": true,
+        "source_type_ok": true,
+        "customer_loan_ok": true,
+        "fact_in_cited_source": null
+      },
+      "sources": [
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 0,
+          "source_id": null,
+          "missing_metadata": []
+        },
+        {
+          "source": "data/raw/NB-LOAN-2101/pdf/03_payslip.pdf",
+          "document_type": "payslip",
+          "customer_id": "NB-CUST-3001",
+          "loan_id": "NB-LOAN-2101",
+          "chunk_index": 1,
+          "source_id": null,
+          "missing_metadata": []
+        }
+      ],
+      "validation": {
+        "search_mode": "semantic",
+        "attempts": 1,
+        "basic_validation_passed": true,
+        "evidence_validation_passed": true,
+        "outcome": "verified_answer",
+        "stopped_before_generation": false,
+        "system_abstention": false
+      },
+      "answer_excerpt": null
+    }
+  ]
+}

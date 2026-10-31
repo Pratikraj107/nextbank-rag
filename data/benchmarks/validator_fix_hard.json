@@ -1,0 +1,500 @@
+{
+  "configs": {
+    "current": {
+      "summary": {
+        "config": {
+          "label": "current",
+          "model": null,
+          "reasoning_effort": null,
+          "structured_output": null
+        },
+        "cases": 18,
+        "errors": 0,
+        "correct": 12,
+        "judged": 12,
+        "false_accepts": 0,
+        "false_rejects": 0,
+        "validation_total": {
+          "n": 18,
+          "median": 4713.8,
+          "p95": 6182.7
+        },
+        "llm_request": {
+          "n": 18,
+          "median": 4712.9,
+          "p95": 6181.9
+        },
+        "server_processing": {
+          "n": 18,
+          "median": 4350.0,
+          "p95": 5870.2
+        },
+        "prompt_prep": {
+          "n": 18,
+          "median": 0.0,
+          "p95": 0.0
+        },
+        "parse": {
+          "n": 18,
+          "median": 0.0,
+          "p95": 0.1
+        },
+        "median_input_tokens": 898,
+        "median_output_tokens": 382,
+        "median_reasoning_tokens": 192
+      },
+      "rows": [
+        {
+          "case": "two_facts_good",
+          "run": 1,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 5260.0,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.2,
+            "evidence_validation.llm_request": 5242.8,
+            "evidence_validation.server_processing": 3398.0,
+            "evidence_validation.parse": 0.1,
+            "evidence_validation": 5245.1,
+            "total": 5245.3
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 906,
+              "output_tokens": 258,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "The payslip (S1) explicitly names Lotte van Dijk and states Gross monthly salary: EUR 6,000.00 and Net salary: EUR 4,300.00. Metadata links the document to the customer and loan application (NB-CUST-3001, NB-LOAN-2101), confirming the association."
+        },
+        {
+          "case": "two_facts_one_wrong",
+          "run": 1,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 5747.8,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 5743.8,
+            "evidence_validation.server_processing": 5441.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 5744.7,
+            "total": 5744.7
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 906,
+              "output_tokens": 379,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "The proposed gross salary (EUR 6,000) is supported by the payslip, but the proposed net salary (EUR 4,700) contradicts the payslip. The evidence states the net salary is EUR 4,300."
+        },
+        {
+          "case": "wrong_employer",
+          "run": 1,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4847.2,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4843.5,
+            "evidence_validation.server_processing": 4415.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4844.4,
+            "total": 4844.5
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 869,
+              "output_tokens": 401,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The evidence (S1) explicitly lists Lotte van Dijk as Employee and states the Employer is Canal Analytics B.V., so the proposed claim that she is employed by Delta Infra B.V. is contradicted by the document."
+        },
+        {
+          "case": "approval_overclaim",
+          "run": 1,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4482.0,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4477.8,
+            "evidence_validation.server_processing": 4094.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4478.8,
+            "total": 4478.9
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 904,
+              "output_tokens": 417,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The provided documents (S1/S2) show the loan application for NB-LOAN-2101 requesting EUR 22,000 over 48 months and identify the applicant (Lotte van Dijk / NB-CUST-3001), but none of the supplied evidence states the loan has been approved. The claim of approval is not supported."
+        },
+        {
+          "case": "citation_wrong_chunk",
+          "run": 1,
+          "expected_supported": null,
+          "accepted": true,
+          "correct": null,
+          "error": null,
+          "client_ms": 3083.7,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3079.4,
+            "evidence_validation.server_processing": 2787.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3080.3,
+            "total": 3080.4
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 891,
+              "output_tokens": 321,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The payslip (S1) explicitly names Lotte van Dijk and states 'Net salary: EUR 4,300.00' for the payroll period (September 2026). Metadata links the document to the customer and loan, and the document content directly supports the claimed monthly net salary."
+        },
+        {
+          "case": "credit_status_identity",
+          "run": 1,
+          "expected_supported": null,
+          "accepted": false,
+          "correct": null,
+          "error": null,
+          "client_ms": 6028.4,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 6024.8,
+            "evidence_validation.server_processing": 5636.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 6025.5,
+            "total": 6025.6
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 888,
+              "output_tokens": 692,
+              "reasoning_tokens": 448
+            }
+          },
+          "reason": "The evidence shows a document with metadata NB-CUST-3001 / NB-LOAN-2101 whose content states 'Status: DOCUMENT REVIEW PENDING' (S2). However, none of the supplied evidence links the name 'Lotte van Dijk' to customer ID NB-CUST-3001 or loan ID NB-LOAN-2101, so the claim about Lotte van Dijk's credit assessment status is not established."
+        },
+        {
+          "case": "two_facts_good",
+          "run": 2,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3689.0,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3685.4,
+            "evidence_validation.server_processing": 3201.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3686.2,
+            "total": 3686.3
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 906,
+              "output_tokens": 356,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "Both the gross monthly salary (EUR 6,000.00) and net salary (EUR 4,300.00) for Lotte van Dijk are explicitly stated in the payslip content (S1) and corroborated by S2. The payslip names Lotte van Dijk and includes matching customer and loan metadata, establishing the document’s association."
+        },
+        {
+          "case": "two_facts_one_wrong",
+          "run": 2,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 5324.1,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 5320.5,
+            "evidence_validation.server_processing": 4994.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 5321.2,
+            "total": 5321.3
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 906,
+              "output_tokens": 407,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The payslip (S1/S2) shows Gross monthly salary = EUR 6,000.00 and Net salary = EUR 4,300.00. The proposed answer's net salary (EUR 4,700) contradicts the document."
+        },
+        {
+          "case": "wrong_employer",
+          "run": 2,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4954.9,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4951.1,
+            "evidence_validation.server_processing": 4561.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4951.9,
+            "total": 4952.0
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 869,
+              "output_tokens": 433,
+              "reasoning_tokens": 256
+            }
+          },
+          "reason": "The cited document S1 names the employee as Lotte van Dijk and (via its metadata) links to the customer/loan, and the document content states the employer. However, S1 lists the employer as Canal Analytics B.V., not Delta Infra B.V., so the proposed claim is not supported."
+        },
+        {
+          "case": "approval_overclaim",
+          "run": 2,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4736.4,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4731.3,
+            "evidence_validation.server_processing": 4404.0,
+            "evidence_validation.parse": 0.1,
+            "evidence_validation": 4732.5,
+            "total": 4732.6
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 904,
+              "output_tokens": 397,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The evidence (S1/S2) confirms the loan application NB-LOAN-2101 for EUR 22,000 over 48 months and links it to applicant Lotte van Dijk / customer NB-CUST-3001, but none of the provided documents state that the loan was approved. The approval status claim is unsupported."
+        },
+        {
+          "case": "citation_wrong_chunk",
+          "run": 2,
+          "expected_supported": null,
+          "accepted": true,
+          "correct": null,
+          "error": null,
+          "client_ms": 2819.5,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 2814.9,
+            "evidence_validation.server_processing": 2506.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 2815.8,
+            "total": 2815.9
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 891,
+              "output_tokens": 223,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "The payslip (S1) explicitly names Lotte van Dijk and lists Net salary: EUR 4,300. Metadata associates the document with the customer and loan IDs, and the document content directly states the monthly net salary."
+        },
+        {
+          "case": "credit_status_identity",
+          "run": 2,
+          "expected_supported": null,
+          "accepted": false,
+          "correct": null,
+          "error": null,
+          "client_ms": 6145.7,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 6142.3,
+            "evidence_validation.server_processing": 5826.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 6143.1,
+            "total": 6143.2
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 888,
+              "output_tokens": 546,
+              "reasoning_tokens": 320
+            }
+          },
+          "reason": "The documents (S1, S2) show status 'DOCUMENT REVIEW PENDING' for customer ID NB-CUST-3001 and loan NB-LOAN-2101, but none of the supplied evidence links the name 'Lotte van Dijk' to customer ID NB-CUST-3001. Therefore the claim about Lotte van Dijk's credit assessment status is not fully supported."
+        },
+        {
+          "case": "two_facts_good",
+          "run": 3,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3625.3,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3621.4,
+            "evidence_validation.server_processing": 3320.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3622.3,
+            "total": 3622.4
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 906,
+              "output_tokens": 265,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "Both payslip document chunks (S1 and S2) explicitly state Lotte van Dijk's gross monthly salary as EUR 6,000.00 and net salary as EUR 4,300.00, and the document includes the employee name and matching customer/loan metadata linking it to the application."
+        },
+        {
+          "case": "two_facts_one_wrong",
+          "run": 3,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 6409.7,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 6406.4,
+            "evidence_validation.server_processing": 6121.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 6406.9,
+            "total": 6407.0
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 906,
+              "output_tokens": 322,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "The payslip (S1/S2) supports the gross monthly salary of EUR 6,000 but shows a net salary of EUR 4,300, not EUR 4,700 as claimed."
+        },
+        {
+          "case": "wrong_employer",
+          "run": 3,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4344.6,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4340.8,
+            "evidence_validation.server_processing": 4057.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4341.6,
+            "total": 4341.7
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 869,
+              "output_tokens": 322,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "The provided evidence (S1) names Lotte van Dijk as the employee and states the employer is Canal Analytics B.V.; it does not support the claim that her employer is Delta Infra B.V."
+        },
+        {
+          "case": "approval_overclaim",
+          "run": 3,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4696.8,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4694.4,
+            "evidence_validation.server_processing": 4367.0,
+            "evidence_validation.parse": 0.1,
+            "evidence_validation": 4695.1,
+            "total": 4695.1
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 904,
+              "output_tokens": 384,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The evidence (S1/S2) confirms the application NB-LOAN-2101 requesting EUR 22,000 for 48 months and links that application to customer NB-CUST-3001 / applicant Lotte van Dijk, but none of the supplied documents state that the loan was approved. The claim that the loan 'has been approved' is not supported by the provided evidence."
+        },
+        {
+          "case": "citation_wrong_chunk",
+          "run": 3,
+          "expected_supported": null,
+          "accepted": true,
+          "correct": null,
+          "error": null,
+          "client_ms": 3734.4,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3732.0,
+            "evidence_validation.server_processing": 3350.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3732.6,
+            "total": 3732.7
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 891,
+              "output_tokens": 279,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "The payslip (S1) explicitly names Lotte van Dijk and shows 'Net salary: EUR 4,300.00' for the payroll period (September 2026). Metadata (customer_id NB-CUST-3001, loan_id NB-LOAN-2101) consistently links the document to the application. A second chunk from the same document (S2) repeats the net salary figure."
+        },
+        {
+          "case": "credit_status_identity",
+          "run": 3,
+          "expected_supported": null,
+          "accepted": false,
+          "correct": null,
+          "error": null,
+          "client_ms": 4633.1,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4629.5,
+            "evidence_validation.server_processing": 4333.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4630.4,
+            "total": 4630.5
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 888,
+              "output_tokens": 442,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The documents (metadata NB-CUST-3001, NB-LOAN-2101) state the credit assessment status is 'DOCUMENT REVIEW PENDING' (S2). However, none of the supplied evidence links the name 'Lotte van Dijk' to customer ID NB-CUST-3001 or loan ID NB-LOAN-2101, so the claim about that person is not proven."
+        }
+      ]
+    }
+  }
+}

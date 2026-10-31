@@ -8,3 +8,6 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Uploaded originals and job records (local data, not source)
+data/uploads/

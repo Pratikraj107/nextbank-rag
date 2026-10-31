@@ -1,11 +1,32 @@
-from openai import OpenAI
+import os
 
 from src.embeddings.semantic_search import search_with_analysis
+from src.llm.client import get_openai_client
+from src.observability.timing import record_llm_usage, timed_stage
+from src.rag.document_subjects import describe_document
+from src.retrieval.query_analyzer import QueryAnalysis
 
 
 MODEL_NAME = "gpt-5-mini"
 MAX_CONTEXT_CHARS = 10000
 
+# Generation limits. Measured answers used at most ~550 output tokens
+# (reasoning included), so the cap only stops runaway responses.
+ANSWER_MAX_OUTPUT_TOKENS = os.getenv("ANSWER_MAX_OUTPUT_TOKENS", "2000")
+ANSWER_REASONING_EFFORT = os.getenv("ANSWER_REASONING_EFFORT", "low")
+
+
+def llm_options(max_output_tokens: str | None, reasoning_effort: str | None) -> dict:
+    """Build optional Responses API arguments from configuration."""
+    options = {}
+
+    if max_output_tokens:
+        options["max_output_tokens"] = int(max_output_tokens)
+
+    if reasoning_effort:
+        options["reasoning"] = {"effort": reasoning_effort}
+
+    return options
 
 
 def assemble_context(results: list[dict]) -> tuple[str, list[dict]]:
@@ -71,7 +92,8 @@ def assemble_context(results: list[dict]) -> tuple[str, list[dict]]:
         context_parts.append(
             f"[{source_id}]\n"
             f"Document type: {source_info['document_type']}\n"
-            f"Loan ID: {source_info['loan_id']}\n"
+            f"Document describes: {describe_document(source_info['document_type'])}\n"
+            f"Application file (loan ID): {source_info['loan_id']}\n"
             f"Customer ID: {source_info['customer_id']}\n"
             f"Source file: {source_info['source']}\n"
             f"Chunk content:\n{content}"
@@ -91,8 +113,6 @@ def generate_answer(
     """
     Generate an answer using only the retrieved evidence.
     """
-    client = OpenAI()
-
     prompt = f"""
 You are a document question-answering assistant for NexaBank,
 a fictional digital lender in the Netherlands.
@@ -108,6 +128,14 @@ Rules:
 5. If sources conflict, explain the conflict instead of guessing.
 6. Answer clearly and concisely.
 7. Do not claim that a fact is verified beyond the supplied documents.
+8. "Application file (loan ID)" only shows which loan application a
+   document was submitted with. Use "Document describes" to decide
+   which loan or agreement a figure belongs to. Never attribute a
+   figure from one loan or agreement to another. Keep these separate:
+   an existing loan's payment, a requested loan's monthly instalment,
+   a requested loan's principal or requested amount, a loan term, and
+   income. If the requested figure is not stated for the requested
+   loan, say that the documents do not confirm it.
 
 USER QUESTION:
 {question}
@@ -118,24 +146,56 @@ RETRIEVED EVIDENCE:
 ANSWER:
 """.strip()
 
-    response = client.responses.create(
+    response = get_openai_client().responses.create(
         model=MODEL_NAME,
         input=prompt,
+        **llm_options(ANSWER_MAX_OUTPUT_TOKENS, ANSWER_REASONING_EFFORT),
     )
+
+    record_llm_usage("answer_generation", response)
 
     return response.output_text.strip()
 
 
-def answer_question(question: str, top_k: int = 5) -> dict:
+def retrieve_evidence(
+    question: str,
+    top_k: int = 5,
+    analysis: QueryAnalysis | None = None,
+) -> tuple[list[dict], QueryAnalysis, str, list[dict]]:
     """
-    End-to-end RAG flow:
-    query analysis -> retrieval -> context assembly -> generation.
-    """
-    print("\nStep 1: Analyzing the question and retrieving evidence...")
+    Retrieve and assemble evidence without calling the LLM.
 
+    Returns (ranked results, analysis, context text, labelled sources).
+    """
     results, analysis = search_with_analysis(
         query=question,
         top_k=top_k,
+        analysis=analysis,
+    )
+
+    with timed_stage("context_assembly"):
+        context, sources = assemble_context(results)
+
+    return results, analysis, context, sources
+
+
+def answer_question(
+    question: str,
+    top_k: int = 5,
+    analysis: QueryAnalysis | None = None,
+) -> dict:
+    """
+    End-to-end RAG flow:
+    query analysis -> retrieval -> context assembly -> generation.
+
+    Pass `analysis` to reuse a query analysis computed earlier.
+    """
+    print("\nStep 1: Analyzing the question and retrieving evidence...")
+
+    results, analysis, context, sources = retrieve_evidence(
+        question=question,
+        top_k=top_k,
+        analysis=analysis,
     )
 
     if not results:
@@ -149,10 +209,6 @@ def answer_question(question: str, top_k: int = 5) -> dict:
             "intent": analysis.intent,
         }
 
-    print("\nStep 2: Assembling context...")
-
-    context, sources = assemble_context(results)
-
     if not context:
         return {
             "question": question,
@@ -165,10 +221,11 @@ def answer_question(question: str, top_k: int = 5) -> dict:
 
     print("\nStep 3: Generating a grounded answer...")
 
-    answer = generate_answer(
-        question=question,
-        context=context,
-    )
+    with timed_stage("answer_generation"):
+        answer = generate_answer(
+            question=question,
+            context=context,
+        )
 
     return {
         "question": question,

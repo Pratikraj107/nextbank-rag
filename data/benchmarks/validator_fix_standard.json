@@ -1,0 +1,800 @@
+{
+  "configs": {
+    "current": {
+      "summary": {
+        "config": {
+          "label": "current",
+          "model": null,
+          "reasoning_effort": null,
+          "structured_output": null
+        },
+        "cases": 30,
+        "errors": 0,
+        "correct": 30,
+        "judged": 30,
+        "false_accepts": 0,
+        "false_rejects": 0,
+        "validation_total": {
+          "n": 30,
+          "median": 3789.1,
+          "p95": 5205.3
+        },
+        "llm_request": {
+          "n": 30,
+          "median": 3788.3,
+          "p95": 5204.4
+        },
+        "server_processing": {
+          "n": 30,
+          "median": 3456.0,
+          "p95": 4837.5
+        },
+        "prompt_prep": {
+          "n": 30,
+          "median": 0.0,
+          "p95": 0.0
+        },
+        "parse": {
+          "n": 30,
+          "median": 0.0,
+          "p95": 0.0
+        },
+        "median_input_tokens": 898,
+        "median_output_tokens": 352,
+        "median_reasoning_tokens": 192
+      },
+      "rows": [
+        {
+          "case": "salary_lotte_good",
+          "run": 1,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3674.7,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3666.5,
+            "evidence_validation.server_processing": 2996.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3667.6,
+            "total": 3667.7
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 872,
+              "output_tokens": 266,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "Both supplied employment agreement documents explicitly state Employee: Lotte van Dijk and Annual gross salary: EUR 72,000, with consistent customer and loan metadata linking the documents to the same application."
+        },
+        {
+          "case": "salary_lotte_wrong_amount",
+          "run": 1,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 3863.1,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3858.9,
+            "evidence_validation.server_processing": 3560.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3859.7,
+            "total": 3859.8
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 872,
+              "output_tokens": 413,
+              "reasoning_tokens": 256
+            }
+          },
+          "reason": "Both provided evidence documents (S1 and S2) state Lotte van Dijk's annual gross salary is EUR 72,000, which contradicts the proposed answer of EUR 82,000."
+        },
+        {
+          "case": "salary_thomas_good",
+          "run": 1,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3151.8,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3148.0,
+            "evidence_validation.server_processing": 2708.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3148.8,
+            "total": 3148.9
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 888,
+              "output_tokens": 305,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "Payslip (S1) explicitly names Thomas de Boer and lists Gross monthly salary: EUR 6,750.00; S2 repeats the same salary value for the same payroll period and document, and metadata links the payslip to the customer and loan IDs."
+        },
+        {
+          "case": "salary_thomas_swapped_digits",
+          "run": 1,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 3852.2,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3848.6,
+            "evidence_validation.server_processing": 3533.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3849.3,
+            "total": 3849.4
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 888,
+              "output_tokens": 377,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The proposed answer states EUR 6,570, but the supplied payslip evidence (S1 and S2) shows a gross monthly salary of EUR 6,750 for employee Thomas de Boer. Therefore the claimed amount is not supported by the evidence."
+        },
+        {
+          "case": "tenure_good",
+          "run": 1,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3621.0,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3616.8,
+            "evidence_validation.server_processing": 3235.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3617.7,
+            "total": 3617.8
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1272,
+              "output_tokens": 353,
+              "reasoning_tokens": 256
+            }
+          },
+          "reason": "The employment agreement (S2) for employee Lotte van Dijk (linked by name and customer_id NB-CUST-3001 across documents) states a start date of 03 May 2021, which does not confirm a tenure of at least 10 years."
+        },
+        {
+          "case": "tenure_overstated",
+          "run": 1,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4231.6,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4227.2,
+            "evidence_validation.server_processing": 3909.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4228.0,
+            "total": 4228.1
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1261,
+              "output_tokens": 411,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The employment agreement (S2) states a start date of 03 May 2021, which does not support the claim that Lotte van Dijk has worked at her current employer for at least 10 years. The documents consistently identify Lotte van Dijk and link her to Canal Analytics B.V. (metadata and content), so identity and status linkage are established, but the factual claim about 10+ years is not supported by the provided evidence."
+        },
+        {
+          "case": "start_date_wrong",
+          "run": 1,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4268.7,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4265.9,
+            "evidence_validation.server_processing": 3921.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4266.6,
+            "total": 4266.7
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1251,
+              "output_tokens": 443,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The proposed answer claims a start date of 3 May 2020, but the supplied employment agreement (S2) lists the start date as 03 May 2021. Documents consistently identify Lotte van Dijk (customer NB-CUST-3001) and link her to Canal Analytics B.V., so the identity and status linkage are established, but the date in the proposed answer is contradicted by the evidence."
+        },
+        {
+          "case": "favorite_color_abstain",
+          "run": 1,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3069.9,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3065.9,
+            "evidence_validation.server_processing": 2644.0,
+            "evidence_validation.parse": 0.1,
+            "evidence_validation": 3066.8,
+            "total": 3067.0
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1228,
+              "output_tokens": 272,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "None of the provided documents (S1–S5) contain any statement about Lotte van Dijk's favorite color. The documents consistently identify the person (name and customer_id NB-CUST-3001), so identity linkage is established, and status linkage is not applicable for a personal preference."
+        },
+        {
+          "case": "favorite_color_invented",
+          "run": 1,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4201.1,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4197.6,
+            "evidence_validation.server_processing": 3746.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4198.5,
+            "total": 4198.6
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1212,
+              "output_tokens": 408,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "No supplied evidence states Lotte van Dijk's favorite color. The cited record [S4] contains name, city, date_of_birth, and employment but does not mention any favorite color; none of the other documents contain that information either."
+        },
+        {
+          "case": "net_salary_good",
+          "run": 1,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3670.4,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3666.8,
+            "evidence_validation.server_processing": 3325.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3667.6,
+            "total": 3667.7
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 894,
+              "output_tokens": 271,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "The payslip (September 2026) explicitly names Employee Lotte van Dijk and shows Net salary: EUR 4,300. Document metadata associates the payslip with the customer (NB-CUST-3001) and loan (NB-LOAN-2101), and the document is described as the customer's employment income, supporting the claim."
+        },
+        {
+          "case": "net_salary_wrong_person",
+          "run": 1,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 5238.3,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 5234.6,
+            "evidence_validation.server_processing": 4832.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 5235.5,
+            "total": 5235.5
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 890,
+              "output_tokens": 449,
+              "reasoning_tokens": 256
+            }
+          },
+          "reason": "The payslip evidence shows a net salary of EUR 4,300 but is for employee Lotte van Dijk; there is no document content tying that salary to Thomas de Boer, so the claim about Thomas de Boer is unsupported."
+        },
+        {
+          "case": "loan_term_good",
+          "run": 1,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3377.2,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3373.4,
+            "evidence_validation.server_processing": 3031.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3374.3,
+            "total": 3374.3
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 898,
+              "output_tokens": 237,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "The loan application document (metadata loan_id NB-LOAN-2101) explicitly states 'Term: 48 months' in its content (S1,S2), directly supporting the claim."
+        },
+        {
+          "case": "loan_term_wrong",
+          "run": 1,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 5021.1,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 5017.3,
+            "evidence_validation.server_processing": 4728.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 5018.1,
+            "total": 5018.1
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 898,
+              "output_tokens": 402,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "Both provided documents (S1 and S2) state the term for application NB-LOAN-2101 is 48 months, which contradicts the proposed answer of 60 months."
+        },
+        {
+          "case": "loan_amount_good",
+          "run": 1,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3579.3,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3575.7,
+            "evidence_validation.server_processing": 3191.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3576.5,
+            "total": 3576.6
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 902,
+              "output_tokens": 247,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "Document content in the loan application (application reference NB-LOAN-2101) explicitly states the requested amount as EUR 22,000. Metadata matches the loan ID."
+        },
+        {
+          "case": "loan_amount_wrong",
+          "run": 1,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4149.6,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4146.1,
+            "evidence_validation.server_processing": 3805.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4146.9,
+            "total": 4147.0
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 902,
+              "output_tokens": 328,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "The proposed answer (EUR 32,000) is contradicted by the supplied evidence. Both provided document chunks for NB-LOAN-2101 state the requested amount is EUR 22,000."
+        },
+        {
+          "case": "salary_lotte_good",
+          "run": 2,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 5272.0,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 5268.0,
+            "evidence_validation.server_processing": 4940.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 5268.8,
+            "total": 5268.9
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 872,
+              "output_tokens": 451,
+              "reasoning_tokens": 320
+            }
+          },
+          "reason": "Both provided documents (S1 and S2) explicitly state Employee: Lotte van Dijk and Annual gross salary: EUR 72,000; document metadata links these documents to customer NB-CUST-3001 and loan NB-LOAN-2101, establishing the identity association."
+        },
+        {
+          "case": "salary_lotte_wrong_amount",
+          "run": 2,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4815.7,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4811.6,
+            "evidence_validation.server_processing": 4485.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4812.5,
+            "total": 4812.6
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 872,
+              "output_tokens": 449,
+              "reasoning_tokens": 256
+            }
+          },
+          "reason": "The evidence documents (S1 and S2) state Lotte van Dijk's annual gross salary is EUR 72,000, which contradicts the proposed answer of EUR 82,000. The cited sources exist but do not support the claimed figure."
+        },
+        {
+          "case": "salary_thomas_good",
+          "run": 2,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 4163.4,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4159.1,
+            "evidence_validation.server_processing": 3622.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4160.0,
+            "total": 4160.1
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 888,
+              "output_tokens": 382,
+              "reasoning_tokens": 256
+            }
+          },
+          "reason": "Payslip (S1) names Thomas de Boer and explicitly lists Gross monthly salary: EUR 6,750.00; S2 repeats the salary figure for the same payroll period and shares consistent metadata (NB-CUST-3002, NB-LOAN-2102), supporting the claimed amount."
+        },
+        {
+          "case": "salary_thomas_swapped_digits",
+          "run": 2,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 3666.6,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3663.3,
+            "evidence_validation.server_processing": 3379.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3663.9,
+            "total": 3664.0
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 888,
+              "output_tokens": 352,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The provided documents identify Thomas de Boer and state a gross monthly salary, but both cited evidence (S1 and S2) show EUR 6,750.00, not EUR 6,570 as claimed."
+        },
+        {
+          "case": "tenure_good",
+          "run": 2,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3328.0,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3324.5,
+            "evidence_validation.server_processing": 2958.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3325.3,
+            "total": 3325.3
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1272,
+              "output_tokens": 264,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "The employment agreement (S2) for Lotte van Dijk (matches customer ID NB-CUST-3001) lists a start date of 03 May 2021, which does not indicate a tenure of at least 10 years. The employer statement (S1) also names Lotte van Dijk at the same employer, supporting the linkage."
+        },
+        {
+          "case": "tenure_overstated",
+          "run": 2,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 5171.5,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 5167.5,
+            "evidence_validation.server_processing": 4842.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 5168.3,
+            "total": 5168.4
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1261,
+              "output_tokens": 531,
+              "reasoning_tokens": 256
+            }
+          },
+          "reason": "The employment agreement (S2) lists a start date of 03 May 2021 with employer Canal Analytics B.V., which does not confirm employment of at least 10 years. Other supplied evidence (e.g., payslip dated September 2026 in S3) is consistent with employment but also does not indicate a 10-year tenure."
+        },
+        {
+          "case": "start_date_wrong",
+          "run": 2,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 3400.0,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3396.1,
+            "evidence_validation.server_processing": 3072.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3396.9,
+            "total": 3397.0
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1251,
+              "output_tokens": 401,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The proposed answer gives the start date as 3 May 2020, but the employment agreement (S2) states the start date is 03 May 2021. The employer statement (S1) confirms the employer but does not provide a start date, so it does not support the 2020 claim."
+        },
+        {
+          "case": "favorite_color_abstain",
+          "run": 2,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 2547.3,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 2543.7,
+            "evidence_validation.server_processing": 2242.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 2544.5,
+            "total": 2544.6
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1228,
+              "output_tokens": 265,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "None of the provided documents (S1–S5) contain any information about Lotte van Dijk's favorite color. The documents consistently identify the person as Lotte van Dijk (customer_id NB-CUST-3001), so the absence of the favorite-color information in these records supports the claim."
+        },
+        {
+          "case": "favorite_color_invented",
+          "run": 2,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 3731.5,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3728.1,
+            "evidence_validation.server_processing": 3206.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3728.8,
+            "total": 3728.9
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1212,
+              "output_tokens": 366,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "None of the provided evidence states Lotte van Dijk's favorite color. The cited record S4 contains name, city, date_of_birth, and employment but no information about favorite color, so the claim is unsupported."
+        },
+        {
+          "case": "net_salary_good",
+          "run": 2,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3375.9,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3372.1,
+            "evidence_validation.server_processing": 2996.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3373.0,
+            "total": 3373.1
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 894,
+              "output_tokens": 276,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "Both supplied payslip chunks (S1 and S2) explicitly show employee name Lotte van Dijk and state a net monthly salary of EUR 4,300 for the payroll period (September 2026). Metadata associates the document with the customer/application, and the document content directly supports the claim."
+        },
+        {
+          "case": "net_salary_wrong_person",
+          "run": 2,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 3885.2,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3881.3,
+            "evidence_validation.server_processing": 3549.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3882.1,
+            "total": 3882.2
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 890,
+              "output_tokens": 334,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "The cited payslip shows a net salary of EUR 4,300 but is for employee Lotte van Dijk. There is no evidence linking that payslip or the EUR 4,300 figure to Thomas de Boer."
+        },
+        {
+          "case": "loan_term_good",
+          "run": 2,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3379.4,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3375.3,
+            "evidence_validation.server_processing": 3083.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3376.1,
+            "total": 3376.2
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 898,
+              "output_tokens": 230,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "Document content from the loan application (NB-LOAN-2101) explicitly states 'Term: 48 months' and the document metadata associates it with loan ID NB-LOAN-2101."
+        },
+        {
+          "case": "loan_term_wrong",
+          "run": 2,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4227.7,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4223.7,
+            "evidence_validation.server_processing": 3912.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4224.5,
+            "total": 4224.6
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 898,
+              "output_tokens": 315,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "Both provided evidence chunks (S1 and S2) state the loan term is 48 months for application NB-LOAN-2101, which contradicts the proposed answer of 60 months."
+        },
+        {
+          "case": "loan_amount_good",
+          "run": 2,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3666.2,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3662.8,
+            "evidence_validation.server_processing": 3293.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3663.6,
+            "total": 3663.7
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 902,
+              "output_tokens": 257,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "Both provided document chunks (S1 and S2) explicitly state 'Requested: EUR 22,000' and are associated with application file metadata loan_id NB-LOAN-2101; the evidence supports the claimed requested amount."
+        },
+        {
+          "case": "loan_amount_wrong",
+          "run": 2,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4406.6,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4402.7,
+            "evidence_validation.server_processing": 4040.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4403.6,
+            "total": 4403.7
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 902,
+              "output_tokens": 398,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The proposed answer (EUR 32,000) contradicts the supplied evidence. Both provided document chunks (S1 and S2) from the NB-LOAN-2101 loan application state the requested amount is EUR 22,000, not EUR 32,000."
+        }
+      ]
+    }
+  }
+}

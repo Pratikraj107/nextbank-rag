@@ -1,7 +1,7 @@
 import { Landmark } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 
-import type { Message } from '../types'
+import type { ComposerDraft, Message } from '../types'
 import { ChatMessage } from './ChatMessage'
 import { MessageComposer } from './MessageComposer'
 import { SuggestedQuestions } from './SuggestedQuestions'
@@ -37,9 +37,10 @@ interface ChatViewProps {
   onRetry: (id: string) => void
   onCitation: (messageId: string, index: number) => void
   onShowSources: (messageId: string) => void
+  draft?: ComposerDraft | null
 }
 
-export function ChatView({ messages, isLoading, onSend, onRetry, onCitation, onShowSources }: ChatViewProps) {
+export function ChatView({ messages, isLoading, onSend, onRetry, onCitation, onShowSources, draft }: ChatViewProps) {
   const endRef = useRef<HTMLDivElement>(null)
   const lastMessage = messages.at(-1)
   const scrollKey = lastMessage
@@ -80,7 +81,8 @@ export function ChatView({ messages, isLoading, onSend, onRetry, onCitation, onS
 
       <div className="border-t border-line/70 bg-canvas/90 backdrop-blur">
         <div className="mx-auto w-full max-w-3xl px-4 pt-3 pb-4 sm:px-6">
-          <MessageComposer isLoading={isLoading} onSend={onSend} />
+          {/* A new draft remounts the composer with the draft as its initial text. */}
+          <MessageComposer key={draft?.nonce ?? 0} isLoading={isLoading} onSend={onSend} draft={draft} />
           <p className="mt-2 text-center text-xs text-muted">
             AI-generated responses are decision-support only. Verify critical information against
             the source documents.

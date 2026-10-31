@@ -1,0 +1,500 @@
+{
+  "configs": {
+    "current": {
+      "summary": {
+        "config": {
+          "label": "current",
+          "model": null,
+          "reasoning_effort": null,
+          "structured_output": null
+        },
+        "cases": 18,
+        "errors": 0,
+        "correct": 18,
+        "judged": 18,
+        "false_accepts": 0,
+        "false_rejects": 0,
+        "validation_total": {
+          "n": 18,
+          "median": 3743.5,
+          "p95": 6811.0
+        },
+        "llm_request": {
+          "n": 18,
+          "median": 3742.7,
+          "p95": 6800.4
+        },
+        "server_processing": {
+          "n": 18,
+          "median": 3399.5,
+          "p95": 6325.3
+        },
+        "prompt_prep": {
+          "n": 18,
+          "median": 0.0,
+          "p95": 0.1
+        },
+        "parse": {
+          "n": 18,
+          "median": 0.0,
+          "p95": 0.0
+        },
+        "median_input_tokens": 1245,
+        "median_output_tokens": 376,
+        "median_reasoning_tokens": 192
+      },
+      "rows": [
+        {
+          "case": "existing_payment_as_requested_instalment",
+          "run": 1,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 7184.0,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.2,
+            "evidence_validation.llm_request": 7101.4,
+            "evidence_validation.server_processing": 6435.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 7167.5,
+            "total": 7167.6
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1244,
+              "output_tokens": 504,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The cited evidence (S5) states a monthly payment of EUR 310, but S5 explicitly describes a separate existing credit agreement, not the requested loan NB-LOAN-2101. Therefore the figure in S5 does not support a claim about the monthly instalment for NB-LOAN-2101. No provided document that describes the requested loan (NB-LOAN-2101) contains a monthly instalment amount."
+        },
+        {
+          "case": "principal_as_instalment",
+          "run": 1,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 6738.7,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 6734.9,
+            "evidence_validation.server_processing": 6306.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 6735.7,
+            "total": 6735.8
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1246,
+              "output_tokens": 616,
+              "reasoning_tokens": 320
+            }
+          },
+          "reason": "The cited evidence (S3) shows the loan principal is EUR 22,000 and term 48 months but does not state a monthly instalment. The proposer appears to have confused the principal with the monthly instalment. The only explicit monthly payment in the set (EUR 310 in S5) refers to a separate existing loan, not the requested loan NB-LOAN-2101, so it cannot be used to support the claim."
+        },
+        {
+          "case": "instalment_not_stated",
+          "run": 1,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3530.6,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.1,
+            "evidence_validation.llm_request": 3526.5,
+            "evidence_validation.server_processing": 3233.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3527.5,
+            "total": 3527.6
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1246,
+              "output_tokens": 350,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "None of the documents that describe the requested loan (e.g., the loan offer S3, the application S4, and the application record S1) provide a monthly instalment amount. The only document showing a monthly payment (S5) explicitly describes a separate existing credit agreement, not the requested loan."
+        },
+        {
+          "case": "existing_payment_correctly_attributed",
+          "run": 1,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3347.5,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.1,
+            "evidence_validation.llm_request": 3343.3,
+            "evidence_validation.server_processing": 3031.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3344.2,
+            "total": 3344.3
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1348,
+              "output_tokens": 304,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "Document S1 (Existing Credit / Loan Balance Statement) names Lotte van Dijk and states the monthly payment is EUR 310. Metadata for S1 matches the customer's ID (NB-CUST-3001), linking the statement to the same customer."
+        },
+        {
+          "case": "fixture_instalment_correct",
+          "run": 1,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3028.8,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3024.5,
+            "evidence_validation.server_processing": 2721.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3025.4,
+            "total": 3025.5
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 754,
+              "output_tokens": 250,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "Document S1 explicitly states 'Loan reference: NB-LOAN-9001' and lists 'Monthly instalment: EUR 512.40', and the document metadata indicates it describes the requested loan identified by that application file, directly supporting the claim."
+        },
+        {
+          "case": "fixture_principal_as_instalment",
+          "run": 1,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 3603.1,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3598.9,
+            "evidence_validation.server_processing": 3305.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3599.7,
+            "total": 3599.8
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 754,
+              "output_tokens": 395,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The provided evidence (S1) shows the monthly instalment for NB-LOAN-9001 is EUR 512.40; the proposed answer incorrectly states EUR 20,000 (which in S1 is the principal)."
+        },
+        {
+          "case": "existing_payment_as_requested_instalment",
+          "run": 2,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4615.0,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4611.0,
+            "evidence_validation.server_processing": 4308.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4611.9,
+            "total": 4612.0
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1244,
+              "output_tokens": 529,
+              "reasoning_tokens": 256
+            }
+          },
+          "reason": "The cited document (S5) reports a monthly payment of EUR 310, but S5 explicitly describes a separate existing credit agreement, not the requested loan NB-LOAN-2101. No provided document that describes the requested loan (NB-LOAN-2101) contains a monthly instalment figure, so the claim is unsupported."
+        },
+        {
+          "case": "principal_as_instalment",
+          "run": 2,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4578.2,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4574.1,
+            "evidence_validation.server_processing": 4108.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4574.9,
+            "total": 4575.0
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1246,
+              "output_tokens": 547,
+              "reasoning_tokens": 256
+            }
+          },
+          "reason": "No supplied evidence states a monthly instalment for NB-LOAN-2101. The documents show a principal/requested amount of EUR 22,000 and a 48-month term, but none report the monthly repayment amount. The proposed answer confuses principal with a monthly instalment. The only monthly payment value in the evidence (EUR 310) refers to a separate existing loan, not NB-LOAN-2101."
+        },
+        {
+          "case": "instalment_not_stated",
+          "run": 2,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3477.2,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3473.2,
+            "evidence_validation.server_processing": 3049.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3474.2,
+            "total": 3474.3
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1246,
+              "output_tokens": 432,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "None of the documents that describe the requested loan (NB-LOAN-2101) state a monthly instalment. The loan offer (S3) lists principal, term and interest rate but no instalment amount. The only monthly payment found (EUR 310 in S5) is explicitly for a separate existing credit agreement and therefore does not support a monthly instalment for NB-LOAN-2101."
+        },
+        {
+          "case": "existing_payment_correctly_attributed",
+          "run": 2,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3274.7,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3271.5,
+            "evidence_validation.server_processing": 2800.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3272.2,
+            "total": 3272.2
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1348,
+              "output_tokens": 281,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "Document S1 (Existing Credit / Loan Balance Statement) names Lotte van Dijk as borrower and explicitly lists the monthly payment as EUR 310. Metadata links the document to the same customer (NB-CUST-3001)."
+        },
+        {
+          "case": "fixture_instalment_correct",
+          "run": 2,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3302.5,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3298.4,
+            "evidence_validation.server_processing": 2935.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3299.3,
+            "total": 3299.4
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 754,
+              "output_tokens": 256,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "Document S1 explicitly states 'Loan reference: NB-LOAN-9001' and 'Monthly instalment: EUR 512.40', and the document metadata and 'Document describes' field tie it to the requested loan."
+        },
+        {
+          "case": "fixture_principal_as_instalment",
+          "run": 2,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 4255.9,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 4252.3,
+            "evidence_validation.server_processing": 3925.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 4253.0,
+            "total": 4253.1
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 754,
+              "output_tokens": 357,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "The provided document (S1) is associated with loan ID NB-LOAN-9001 and describes that loan, but the document states the monthly instalment is EUR 512.40, not EUR 20,000 as claimed. The proposed answer confuses the principal amount (EUR 20,000) with the monthly instalment."
+        },
+        {
+          "case": "existing_payment_as_requested_instalment",
+          "run": 3,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 6476.9,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 6472.8,
+            "evidence_validation.server_processing": 6118.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 6473.7,
+            "total": 6473.8
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1244,
+              "output_tokens": 606,
+              "reasoning_tokens": 320
+            }
+          },
+          "reason": "The cited evidence (S5) gives a monthly payment of EUR 310, but that document explicitly describes a separate existing credit agreement, not the requested loan NB-LOAN-2101. Under the metadata/linkage rules, a figure from a document describing a different agreement does not support a claim about the requested loan."
+        },
+        {
+          "case": "principal_as_instalment",
+          "run": 3,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 6751.4,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 6747.3,
+            "evidence_validation.server_processing": 6235.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 6748.1,
+            "total": 6748.2
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1246,
+              "output_tokens": 636,
+              "reasoning_tokens": 320
+            }
+          },
+          "reason": "No supplied document states a monthly instalment for NB-LOAN-2101. The cited document S3 gives the principal (EUR 22,000) and term (48 months) but does not state a monthly instalment; treating the principal as the monthly instalment is incorrect. The only monthly payment value in the evidence (EUR 310 in S5) refers to a separate existing loan and does not apply to NB-LOAN-2101."
+        },
+        {
+          "case": "instalment_not_stated",
+          "run": 3,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3890.5,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3886.5,
+            "evidence_validation.server_processing": 3494.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3887.3,
+            "total": 3887.4
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1246,
+              "output_tokens": 355,
+              "reasoning_tokens": 192
+            }
+          },
+          "reason": "The loan-offer and application documents for NB-LOAN-2101 (S3, S4, S1) list principal (EUR 22,000) and term (48 months) but do not state a monthly instalment. The only document that shows a monthly payment (EUR 310) is S5, which explicitly describes a separate existing credit agreement, not the requested loan, so it does not support a monthly instalment for NB-LOAN-2101."
+        },
+        {
+          "case": "existing_payment_correctly_attributed",
+          "run": 3,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3481.3,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3477.6,
+            "evidence_validation.server_processing": 3100.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3478.4,
+            "total": 3478.5
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 1348,
+              "output_tokens": 247,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "Document S1 (Existing Credit / Loan Balance Statement) names Lotte van Dijk and explicitly lists the monthly payment as EUR 310 for her existing loan."
+        },
+        {
+          "case": "fixture_instalment_correct",
+          "run": 3,
+          "expected_supported": true,
+          "accepted": true,
+          "correct": true,
+          "error": null,
+          "client_ms": 3328.4,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 3324.6,
+            "evidence_validation.server_processing": 3026.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 3325.4,
+            "total": 3325.5
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 754,
+              "output_tokens": 222,
+              "reasoning_tokens": 128
+            }
+          },
+          "reason": "Document S1 explicitly lists 'Loan reference: NB-LOAN-9001' and 'Monthly instalment: EUR 512.40', and the document's loan_id metadata matches NB-LOAN-9001, directly supporting the claim."
+        },
+        {
+          "case": "fixture_principal_as_instalment",
+          "run": 3,
+          "expected_supported": false,
+          "accepted": false,
+          "correct": true,
+          "error": null,
+          "client_ms": 5890.8,
+          "timings_ms": {
+            "evidence_validation.prompt_prep": 0.0,
+            "evidence_validation.llm_request": 5886.8,
+            "evidence_validation.server_processing": 5538.0,
+            "evidence_validation.parse": 0.0,
+            "evidence_validation": 5887.7,
+            "total": 5887.8
+          },
+          "token_usage": {
+            "evidence_validation": {
+              "input_tokens": 754,
+              "output_tokens": 451,
+              "reasoning_tokens": 256
+            }
+          },
+          "reason": "The evidence (S1) explicitly states the monthly instalment is EUR 512.40 for loan NB-LOAN-9001; the proposed answer (EUR 20,000) confuses the principal with the monthly instalment."
+        }
+      ]
+    }
+  }
+}
