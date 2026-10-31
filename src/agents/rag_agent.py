@@ -9,6 +9,7 @@ from langgraph.graph import END, START, StateGraph
 from src.llm.client import create_response, get_openai_client
 from src.observability.timing import agent_attempt, timed_stage
 from src.rag.answer_question import answer_question, llm_options, retrieve_evidence
+from src.rag.document_subjects import SEPARATE_CREDIT_TYPES, describe_document
 from src.retrieval.exact_search import exact_search
 from src.retrieval.query_analyzer import QueryAnalysis, QueryAnalyzer
 
@@ -401,7 +402,10 @@ def _validate_basic(state: AgentState) -> dict:
         for label in unique_labels
     ]
 
-    metadata_issue = _cited_metadata_issue(state, cited_sources)
+    metadata_issue = (
+        _cited_metadata_issue(state, cited_sources)
+        or _loan_attribution_issue(state, cited_sources)
+    )
 
     if metadata_issue:
         print(f"[Basic Validator] {metadata_issue}")
@@ -418,6 +422,47 @@ def _validate_basic(state: AgentState) -> dict:
         "is_valid": True,
         "validation_feedback": "Basic citation checks passed.",
     }
+
+
+# Questions about the terms of a specific requested loan.
+LOAN_TERM_QUESTION = re.compile(
+    r"\b(instal+ments?|installments?|monthly (re)?payments?|repayments?|"
+    r"principal|interest rate|loan term|term of the loan|duration)\b",
+    re.IGNORECASE,
+)
+# Questions explicitly about another credit agreement are exempt.
+OTHER_CREDIT_QUESTION = re.compile(
+    r"\b(existing|current|other|previous|outstanding) (loans?|credit|debts?)\b",
+    re.IGNORECASE,
+)
+
+
+def _loan_attribution_issue(state: AgentState, cited_sources: list[dict]) -> str | None:
+    """
+    Deterministic guard: a question about the terms of a named loan must
+    not be answered solely from documents that describe a separate,
+    existing credit agreement (e.g. an existing-loan statement filed with
+    that application). Mixed or ambiguous cases are left to the evidence
+    validator, which reads the content.
+    """
+    loan_id = (state.get("query_analysis") or {}).get("loan_id")
+    question = state.get("question", "")
+
+    if (
+        not loan_id
+        or not cited_sources
+        or not LOAN_TERM_QUESTION.search(question)
+        or OTHER_CREDIT_QUESTION.search(question)
+    ):
+        return None
+
+    if all(source.get("document_type") in SEPARATE_CREDIT_TYPES for source in cited_sources):
+        return (
+            f"The answer to a question about {loan_id}'s terms cites only documents "
+            "describing a separate existing credit agreement."
+        )
+
+    return None
 
 
 def _cited_metadata_issue(state: AgentState, cited_sources: list[dict]) -> str | None:
@@ -527,8 +572,9 @@ def build_validation_prompt(
 [S{index}]
 Source file: {source.get('source', 'Unknown')}
 Customer ID metadata: {source.get('customer_id') or 'Unknown'}
-Loan ID metadata: {source.get('loan_id') or 'Unknown'}
+Application file (loan ID) metadata: {source.get('loan_id') or 'Unknown'}
 Document type metadata: {source.get('document_type') or 'Unknown'}
+Document describes: {describe_document(source.get('document_type'))}
 
 Document content:
 {str(content)[:4000]}
@@ -580,6 +626,18 @@ and the second document.
 If identifiers conflict, do not accept the relationship.
 Do not assume metadata is trustworthy if the supplied
 evidence contradicts it.
+
+The loan ID metadata is the application file a document was
+submitted with. It can link a document to a customer and an
+application, but it does NOT show that a financial figure in
+the document (a payment, instalment, principal, requested
+amount, term or rate) belongs to that loan. Use "Document
+describes" to decide which loan or agreement a figure belongs
+to. A figure from a document that describes a separate
+existing credit agreement does not support a claim about the
+requested loan. A principal, requested amount, income figure
+or existing-loan payment does not support a claim about a
+monthly instalment.
 
 4. STATUS LINKAGE
 For a question about a person's or loan's status, verify:

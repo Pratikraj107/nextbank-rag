@@ -3,6 +3,7 @@ import os
 from src.embeddings.semantic_search import search_with_analysis
 from src.llm.client import get_openai_client
 from src.observability.timing import record_llm_usage, timed_stage
+from src.rag.document_subjects import describe_document
 from src.retrieval.query_analyzer import QueryAnalysis
 
 
@@ -91,7 +92,8 @@ def assemble_context(results: list[dict]) -> tuple[str, list[dict]]:
         context_parts.append(
             f"[{source_id}]\n"
             f"Document type: {source_info['document_type']}\n"
-            f"Loan ID: {source_info['loan_id']}\n"
+            f"Document describes: {describe_document(source_info['document_type'])}\n"
+            f"Application file (loan ID): {source_info['loan_id']}\n"
             f"Customer ID: {source_info['customer_id']}\n"
             f"Source file: {source_info['source']}\n"
             f"Chunk content:\n{content}"
@@ -126,6 +128,14 @@ Rules:
 5. If sources conflict, explain the conflict instead of guessing.
 6. Answer clearly and concisely.
 7. Do not claim that a fact is verified beyond the supplied documents.
+8. "Application file (loan ID)" only shows which loan application a
+   document was submitted with. Use "Document describes" to decide
+   which loan or agreement a figure belongs to. Never attribute a
+   figure from one loan or agreement to another. Keep these separate:
+   an existing loan's payment, a requested loan's monthly instalment,
+   a requested loan's principal or requested amount, a loan term, and
+   income. If the requested figure is not stated for the requested
+   loan, say that the documents do not confirm it.
 
 USER QUESTION:
 {question}

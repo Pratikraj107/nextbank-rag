@@ -17,6 +17,7 @@ Config format: label:model:reasoning_effort[:structured]
 
 import argparse
 import json
+import re
 import statistics
 import sys
 import time
@@ -89,8 +90,48 @@ HARD_CASES = [
      "DOCUMENT REVIEW PENDING [S2].", None),
 ]
 
+# Loan-figure attribution. "{doc:<type>}" is replaced with the label of the
+# first retrieved source of that document type, so answers cite the right chunk.
+# NB-LOAN-9001 is a synthetic fixture: no real document states an instalment.
+FIXTURES = {
+    "fixture:NB-LOAN-9001": [{
+        "source": "tests/fixtures/NB-LOAN-9001/08_loan_offer.pdf",
+        "document_type": "loan_offer", "customer_id": "NB-CUST-9001",
+        "loan_id": "NB-LOAN-9001", "chunk_index": 0,
+        "content": "Loan reference: NB-LOAN-9001 Principal: EUR 20,000 Term: 48 months "
+                   "Monthly instalment: EUR 512.40",
+    }],
+}
+
+ATTRIBUTION_CASES = [
+    ("existing_payment_as_requested_instalment", "What is the monthly instalment for loan NB-LOAN-2101?", None,
+     "The monthly instalment for NB-LOAN-2101 is EUR 310 [{doc:existing_loan_statement}].", False),
+    ("principal_as_instalment", "What is the monthly instalment for loan NB-LOAN-2101?", None,
+     "The monthly instalment for NB-LOAN-2101 is EUR 22,000 [{doc:loan_offer}].", False),
+    ("instalment_not_stated", "What is the monthly instalment for loan NB-LOAN-2101?", None,
+     "The retrieved documents do not state a monthly instalment for NB-LOAN-2101 [{doc:loan_offer}].", True),
+    ("existing_payment_correctly_attributed", "What is the monthly payment on Lotte van Dijk's existing loan?", None,
+     "Lotte van Dijk's existing loan has a monthly payment of EUR 310 [{doc:existing_loan_statement}].", True),
+    ("fixture_instalment_correct", "fixture:NB-LOAN-9001", "What is the monthly instalment for loan NB-LOAN-9001?",
+     "The monthly instalment for NB-LOAN-9001 is EUR 512.40 [S1].", True),
+    ("fixture_principal_as_instalment", "fixture:NB-LOAN-9001", "What is the monthly instalment for loan NB-LOAN-9001?",
+     "The monthly instalment for NB-LOAN-9001 is EUR 20,000 [S1].", False),
+]
+
+
+def resolve_labels(answer: str, sources: list[dict]) -> str:
+    def label_for(match):
+        for index, source in enumerate(sources, start=1):
+            if source.get("document_type") == match.group(1):
+                return f"S{index}"
+        raise ValueError(f"no retrieved source of type {match.group(1)}")
+
+    return re.sub(r"\{doc:([a-z_]+)\}", label_for, answer)
+
 
 def build_sources(question: str) -> list[dict]:
+    if question in FIXTURES:
+        return FIXTURES[question]
     _, _, _, sources = retrieve_evidence(question, top_k=5)
     return [
         {key: source.get(key) for key in
@@ -137,9 +178,10 @@ def main() -> None:
     parser.add_argument("--config", action="append", required=True)
     parser.add_argument("--output", default="validator_benchmark")
     parser.add_argument("--hard", action="store_true", help="Run the harder cases instead")
+    parser.add_argument("--attribution", action="store_true", help="Run the loan-figure attribution cases")
     args = parser.parse_args()
 
-    cases = HARD_CASES if args.hard else CASES
+    cases = ATTRIBUTION_CASES if args.attribution else HARD_CASES if args.hard else CASES
 
     evidence = {question: build_sources(question) for question in {case[1] for case in cases}}
     configs = [parse_config(text) for text in args.config]
@@ -151,7 +193,7 @@ def main() -> None:
             for name, retrieval_q, shown_q, answer, expected in cases:
                 payload = {
                     "question": shown_q or retrieval_q,
-                    "answer": answer,
+                    "answer": resolve_labels(answer, evidence[retrieval_q]),
                     "sources": evidence[retrieval_q],
                     "model": config["model"],
                     "reasoning_effort": config["reasoning_effort"],
